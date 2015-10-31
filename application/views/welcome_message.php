@@ -68,7 +68,7 @@
 
 <div id="container">
 	<h1>Welcome to CodeIgniter!!!</h1>
-	<?= 123?>
+	<?= 12345?>
 
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
@@ -81,7 +81,7 @@
 
 		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
 	</div>
-	
+
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 
