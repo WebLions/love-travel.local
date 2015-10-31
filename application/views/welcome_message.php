@@ -68,11 +68,7 @@
 
 <div id="container">
 	<h1>Welcome to CodeIgniter!!!</h1>
-<<<<<<< HEAD
 	<?= 12345?>
-=======
-	<?= 1234?>
->>>>>>> refs/remotes/origin/master
 
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
