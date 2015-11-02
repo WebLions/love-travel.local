@@ -2,4 +2,4 @@
 
 echo '<h1>готово, красава</h1><br>';
 ?>
-<img src="https://pp.vk.me/c622928/v622928257/5111c/BR4fxoy2gzw.jpg">
+<img src="http://cs622821.vk.me/v622821939/480d7/PidtBeAojOU.jpg">
