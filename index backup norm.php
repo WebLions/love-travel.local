@@ -1400,14 +1400,9 @@
 	            	 </div>
 	        </div>
     	</div>
-    
+    </form>
   	</div>
- 	<div class="row" id="bot_btn" style="display:none">
-		<div class="col-md-12">
-			<button id = "buttonPrint" class="btn btn-primary">Распечатать договор</button>
-		</div>
-    </div>
-	</form>
+
 	
     <!-- /Dogovor -->
 	
@@ -1417,7 +1412,12 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-   			<!-- Modal -->
+   	 <div class="row" id="bot_btn" style="display:none">
+		<div class="col-md-12">
+			<button id = "buttonPrint" class="btn btn-primary">Распечатать договор</button>
+		</div>
+    </div>
+		<!-- Modal -->
     <div class="modal fade" id="printDogovorForm" tabindex="-1" role="dialog" aria-labelledby="printLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -1429,7 +1429,7 @@
 	      
 					<form method="post" action="/convert.php" name="emailForm">		
 			      	<label for="email">Введите ваш e-mail</label>
-		        	<input required required name="email" type="text" class="form-control" id=""  placeholder="почта@почта.почта">
+		        	<input required required name="email" type="email" class="form-control" id=""  placeholder="почта@почта.почта">
 		        	<p>*На указанный адрес мы вышлем копию договора. В случае необходимости вы всегда можете его отредактировать и сохранить. При закрытии этой страницы все введенные данные не сохраняются.</p>
 			   
 	      </div>

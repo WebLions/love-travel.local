@@ -24,10 +24,9 @@
   	$(document).ready(function(){
 
 
-	   	$("#pre_pact").bind("change click", function () {//Написать для договора
+	   	$("#pre_pact").bind("change click", function () {
 	   	  $('#pre_myModalCheck').modal();
 	   	  $("#pre_pact_text").show();
-	   	  $('#pre_vend_and_buyer_block').show();
 	   	  
 		});
 
@@ -544,7 +543,7 @@
     <!-- Соглашение -->
     <div class="row">
     	<div class="col-md-12">
-    		<input required type="checkbox" id="pre_pact">Заполнить персональные данные сторон и адрес объекта
+    		<input required type="checkbox" id="pact">Заполнить персональные данные сторон и адрес объекта
     		<div class="panel panel-primary" id="pre_pact_text" style="display:none">
     			<div class="panel-body">
     				<p>Персональные данные, указанные Вами в конструкторе договора на нашем сайте, недоступны другим пользователям, и используются для генерации видимого только Вам текста договора. Данные передаются через защищенное шифрованием соединение, что подтверждает SSL сертификат Thawte. Мы уделяем серьезное внимание информационной безопасности наших серверов и конфиденциальности персональных данных наших клиентов.</p>
@@ -585,7 +584,6 @@
 	</div>
 
 	<!-- Пролавец-->
-	<div id="pre_vend_and_buyer_block" style="display:none">
 	<div class="row">
     	<div class="col-md-12">
     		<div class="panel panel-primary ">
@@ -890,7 +888,6 @@
 	        </div>
     	</div>
 	</div>
-</div><!--Закрывает блок для скрытия продавца и покупателя -->
     <!-- /Pre-dogovor -->
 
     <!-- Dogovor -->
@@ -1400,14 +1397,9 @@
 	            	 </div>
 	        </div>
     	</div>
-    
+    </form>
   	</div>
- 	<div class="row" id="bot_btn" style="display:none">
-		<div class="col-md-12">
-			<button id = "buttonPrint" class="btn btn-primary">Распечатать договор</button>
-		</div>
-    </div>
-	</form>
+
 	
     <!-- /Dogovor -->
 	
@@ -1417,7 +1409,12 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-   			<!-- Modal -->
+   	 <div class="row" id="bot_btn" style="display:none">
+		<div class="col-md-12">
+			<button id = "buttonPrint" class="btn btn-primary">Распечатать договор</button>
+		</div>
+    </div>
+		<!-- Modal -->
     <div class="modal fade" id="printDogovorForm" tabindex="-1" role="dialog" aria-labelledby="printLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -1429,7 +1426,7 @@
 	      
 					<form method="post" action="/convert.php" name="emailForm">		
 			      	<label for="email">Введите ваш e-mail</label>
-		        	<input required required name="email" type="text" class="form-control" id=""  placeholder="почта@почта.почта">
+		        	<input required required name="email" type="email" class="form-control" id=""  placeholder="почта@почта.почта">
 		        	<p>*На указанный адрес мы вышлем копию договора. В случае необходимости вы всегда можете его отредактировать и сохранить. При закрытии этой страницы все введенные данные не сохраняются.</p>
 			   
 	      </div>
