@@ -1,5 +1,6 @@
 <?php
 require_once 'PHPWord.php';
+
 // ----------------------------------------------------------------------------------------
 /*
  * Возвращает сумму прописью
@@ -286,11 +287,13 @@ if ($_POST['type_doc'] == 'pre_dogovor')
 	$document->setValue('pre_price_string', num2str_money($_POST['pre_price'])); // Не забыть про перевод в строку с числа.
 
 	$name_of_file = time() .'_pre_dogovor_full.docx';
+	setcookie('name_of_doc',$name_of_file);
+
 	$document->save($name_of_file); // Сохранение документа
 	//echo 'saved pre_dogovor.';
 }
 // ----------------------------------------------------------------------------------------
-
+//	ЭТО ДЛЯ ДОГОВОРА. НЕ ПИШИ СЮДА КОД ЕСЛИ ТЫ ХОЧЕШЬ ДЛЯ ДРУГОГО ДОКУМЕНТА 
 elseif($_POST['type_doc'] == 'dogovor')
 {
 	$document = $PHPWord->loadTemplate('dogovor.docx'); //шаблон
@@ -298,34 +301,13 @@ elseif($_POST['type_doc'] == 'dogovor')
 	$document->setValue('city', $_POST['placeOfDogovor']); 
 
 	$name_of_file = time() .'_pre_dogovor_full.docx';
+	setcookie('name_of_doc',$name_of_file);
 	$document->save($name_of_file); // Сохранение документа
 }	
 
 // ----------------------------------------------------------------------------------------
-function file_force_download($file) {
-  if (file_exists($file)) {
-    // сбрасываем буфер вывода PHP, чтобы избежать переполнения памяти выделенной под скрипт
-    // если этого не сделать файл будет читаться в память полностью!
-    if (ob_get_level()) {
-      ob_end_clean();
-    }
-    // заставляем браузер показать окно сохранения файла
-    header('Content-Description: File Transfer');
-    header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename=' . basename($file));
-    header('Content-Transfer-Encoding: binary');
-    header('Expires: 0');
-    header('Cache-Control: must-revalidate');
-    header('Pragma: public');
-    header('Content-Length: ' . filesize($file));
-    // читаем файл и отправляем его пользователю
-    readfile($file);
-    exit;
-  }
-}
-file_force_download($name_of_file);
-// ----------------------------------------------------------------------------------------
-function XMail( $from, $to, $subj, $text, $filename)
+
+/*function XMail( $from, $to, $subj, $text, $filename)
  { 
     $f         = fopen($filename,"rb"); 
     $un        = strtoupper(uniqid(time())); 
@@ -354,10 +336,13 @@ $from = '>Jera<';
 $to = $_POST['email'];
 $subj = 'Electronic dogovor';
 $text = 'Congratz, you have file';
-XMail( $from, $to, $subj, $text, $name_of_file);
+XMail( $from, $to, $subj, $text, $name_of_file);*/
 // ----------------------------------------------------------------------------------------
-
 ?>
+<p>На ваш почтовый ящик былло выслано письмо с документом. Вы также можете<a href="download_doc.php">Скачать документ</a></p>
 <pre>
-<?var_dump($_POST);?>
+<?
+echo 'Тип документа:'.$_POST['type_doc'] . '<br>';
+var_dump($_POST);
+?>
 </pre>
