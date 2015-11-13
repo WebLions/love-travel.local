@@ -8,9 +8,23 @@
     <title>Конструктор договоров купли-продажи квартиры</title>
 
     <!-- Bootstrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
+
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+  	<script src="js/bootstrap-datepicker.js"></script>
+   <script src="locales/bootstrap-datepicker.ru.min.js"></script>
+   <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/js/bootstrap-datepicker.min.js"></script>-->
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+   
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,104 +34,178 @@
     <![endif]-->
   </head>
   <script type="text/javascript">
+//----------------------------------------------------------------------------------------
+// Инициализация перменных
+//----------------------------------------------------------------------------------------
+var i=2;
 
+//----------------------------------------------------------------------------------------
   	$(document).ready(function(){
 
-
+  		// -------------------------------------------------------------------------------
 	   	$("#pre_pact").bind("change click", function () {
-	   	  $('#pre_myModalCheck').modal();
-	   	  $("#pre_pact_text").show();
-	   	  $('#pre_vend_and_buyer_block').show();
-	   	  document.getElementById("pre_bot_btn").style.display = 'block';
+		   	  $('#pre_myModalCheck').modal();
+		   	 
 		});
-
+  		// -------------------------------------------------------------------------------
+		$("#pre_confirm_button").bind("change click", function () {
+	   	 	$("#pre_pact_text").show();
+		   	$('#pre_vend_and_buyer_block').show();
+		   	$('#pre_bot_btn').show();
+		   	$("html, body").delay(360).animate({scrollTop: $('#pre_pact_text').offset().top }, 360);
+	   	});
+  		// -------------------------------------------------------------------------------
 		$("#dogovor_pact").bind("change click", function () {
 	   	  $('#dogovor_myModalCheck').modal();
 	   	  $("#pact-text").show();
 	   	  
 		});
 
-		$('.pre_newDoc').click(function()
+  		// -------------------------------------------------------------------------------
+		$('#pre_add_new_doc').click(function()
 		{
-			var i;
-			var doc_example='<div class="doc-example'+i+'"><hr><label for="doc'+i+'">Документы-основания</label><select name="pre_doc'+i+'" onchange="otherOptionForDinamic(this)"><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="bl'+i+'" style="display:none;"><input type="text" name="pre_otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div></div><div class="form-group"><label for="">Дата документа</label><br><label for="dayOfDoc">День</label><select name="pre_dayOfDoc"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select><label for="monthOfDoc">Месяц</label><select name="pre_monthOfDoc"><option>января</option><option>февраля</option><option>марта</option><option>апреля</option><option>мая</option><option>июня</option><option>июля</option><option>августа</option><option>сентября</option><option>октября</option><option>ноября</option><option>декабря</option></select><label for="yearOfDoc">Год</label><select name="pre_yearOfDoc"><option>2000</option><option>2001</option><option>2002</option><option>2003</option><option>2004</option><option>2005</option><option>2007</option><option>2008</option><option>2009</option><option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option><option selected >2015</option><option>2016</option></select></div></div>';
-			$(".pre_docPlus").append(doc_example);
-			i++;
+			
+			var new_other_doc='<div class="form-group"><div id="pre_doc_osn'+i+'"><hr><label for="pre_doc">Документы-основания</label><select name="pre_doc_osn'+i+'" onchange="pre_otherOptionForDinamic(this);"><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="pre_other_text'+i+'" style="display:none"><input type="text" name="pre_otherOptionInput'+i+'"value="" class="form-control" placeholder="введите название документа"></div></div></div><div class="form-group"><label for="">Дата документа</label><br><input name="pre_date_of_doc'+i+'" type="text" class="form-control" id="" placeholder="дд.мм.гггг" ></div>';
+			$(".pre_docPlus").append(new_other_doc);
+			i++
+		   	
 		});
+  		// -------------------------------------------------------------------------------
 		$('.newDoc').click(function()
 		{
-			var i;
+			
 			var doc_example='<div class="doc-example'+i+'"><hr><label for="doc'+i+'">Документы-основания</label><select name="doc'+i+'" onchange="otherOptionForDinamic(this)"><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="bl'+i+'" style="display:none;"><input type="text" name="otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div></div><div class="form-group"><label for="">Дата документа</label><br><label for="dayOfDoc">День</label><select name="dayOfDoc"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select><label for="monthOfDoc">Месяц</label><select name="monthOfDoc"><option>января</option><option>февраля</option><option>марта</option><option>апреля</option><option>мая</option><option>июня</option><option>июля</option><option>августа</option><option>сентября</option><option>октября</option><option>ноября</option><option>декабря</option></select><label for="yearOfDoc">Год</label><select name="yearOfDoc"><option>2000</option><option>2001</option><option>2002</option><option>2003</option><option>2004</option><option>2005</option><option>2007</option><option>2008</option><option>2009</option><option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option><option selected >2015</option><option>2016</option></select></div></div>';
 			$(".docPlus").append(doc_example);
 			i++;
 		});
 		
+  		// -------------------------------------------------------------------------------
 		$('#buttonPrint').click(function(){
 			
 			$('#printDogovorForm').modal();
 		});
+  		// -------------------------------------------------------------------------------
 		$('#pre_buttonPrint').click(function(){
 			
 			$('#pre_printDogovorForm').modal();
 		});
+  		// -------------------------------------------------------------------------------
   		$('#pre_buttonEndOfTimes').click(function(){
   			document.pre_mainForm.submit();
   		});
+  		// -------------------------------------------------------------------------------
   		$('#buttonEndOfTimes').click(function(){
   			document.mainForm.submit();
   		});
+  		// -------------------------------------------------------------------------------
+  		// Дэйтпикеры
+  		// -------------------------------------------------------------------------------
+
+  		$('#pre_dayOfDogor .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+  		// -------------------------------------------------------------------------------
+  		$('#pre_cal_date_of_main_dogovor .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+  		// -------------------------------------------------------------------------------
+  		$('#pre_cal_birthday_of_vendor .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});			
+  		// -------------------------------------------------------------------------------
+  		$('#pre_cal_date_of_reg_obr .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+  		// -------------------------------------------------------------------------------
+  		$('#pre_cal_date_of_end_obr .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+  		// -------------------------------------------------------------------------------
+  		$('#pre_cal_svidetelstvo_data .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+  		// -------------------------------------------------------------------------------
+  		$('#pre_cal_birthday_of_buyer .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+  		// -------------------------------------------------------------------------------
+  		// -------------------------------------------------------------------------------
+
 	});
+//----------------------------------------------------------------------------------------
 		function pre_otherOption(sel){
 		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	document.getElementById("pre_bl").style.display = 'block'; 
+		    	 	document.getElementById("pre_other_text").style.display = 'block'; 
 		   		 else 
-		     		document.getElementById("pre_bl").style.display = 'none';
+		     		document.getElementById("pre_other_text").style.display = 'none';
 		     };
+//----------------------------------------------------------------------------------------
 		function pre_otherOptionForDinamic(sel){
-			var i;
-		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	document.getElementById("pre_bl"+i).style.display = 'block'; 
+				--i;//Так как при нажатии кнопки происходит i++, то чтобы обратиться к текущему элементу необходимо уменьшить счетчик на 1
+				if(sel.options[sel.selectedIndex].value == "other") 
+		    	 	$("#pre_other_text"+i).css('display','block');
+		    		    	 	
 		   		 else 
-		     		document.getElementById("pre_bl"+i).style.display = 'none';
+		     		$("#pre_other_text"+i).css('display','none');
+		     		--i;
 		     	i++;
 		     };
-		function otherOption(sel){
+//----------------------------------------------------------------------------------------
+		function otherOption(sel){//Поменяй меня потом
 		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	document.getElementById("bl").style.display = 'block'; 
+		    	 	document.getElementById("pre_othasder_text").style.display = 'block'; 
 		   		 else 
-		     		document.getElementById("bl").style.display = 'none';
+		     		document.getElementById("pre_otasdher_text").style.display = 'none';
 		     };
-		function otherOptionForDinamic(sel){
-			var i;
-		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	document.getElementById("bl"+i).style.display = 'block'; 
+//----------------------------------------------------------------------------------------
+		function otherOptionForDinamic(sel){//Поменяй меня потом
+				if(sel.options[sel.selectedIndex].value == "other") 
+		    	 	document.getElementById("pre_фывher_text"+i).style.display = 'block'; 
 		   		 else 
-		     		document.getElementById("bl"+i).style.display = 'none';
-		     	i++;
+		     		document.getElementById("pre_asdher_text"+i).style.display = 'none';
+		     	
 		     };
 		
+//----------------------------------------------------------------------------------------
 		function pre_showObremenenie(){
 			document.getElementById("pre_obremenenie_form").style.display = 'block';
 		};
+//----------------------------------------------------------------------------------------
 		function pre_hideObremenenie(){
 			document.getElementById("pre_obremenenie_form").style.display = 'none';
 		};
+//----------------------------------------------------------------------------------------
 		function showDogovor(){
 			document.getElementById("dogovor").style.display = 'block';
 			document.getElementById("pre_dogovor").style.display = 'none';
 			document.getElementById("bot_btn").style.display = 'block';
 			
 		};
+//----------------------------------------------------------------------------------------
 		function showPreDogovor(){
 			document.getElementById("pre_dogovor").style.display = 'block';
 			document.getElementById("dogovor").style.display = 'none';
 							
 		};
+//----------------------------------------------------------------------------------------
 		
 			
 
   </script>
-  
   <body>
   	<div class="container-fluid">
   	
@@ -129,8 +217,7 @@
     	</div>
     </div>
     <!-- /Header -->
-	<!--<form class="" method="post" action="/convert.php" name="choose_Form" id="choose_Form">-->
-    <!-- Choose type of dogovor -->
+	<!-- Choose type of dogovor -->
     <div class="row">
     	<div class="col-md-12">
     	 <!-- Global form -->
@@ -173,75 +260,12 @@
 		        	</div>
 		        	<div class="form-group">
 		        		<label for="">Дата заключения договора</label><br>
-		        		<label for="pre_dayOfDogovor">День</label>
-		        		<select name="pre_dayOfDogovor">
-		        			<option>1</option>
-		        			<option>2</option>
-		        			<option>3</option>
-		        			<option>4</option>
-		        			<option>5</option>
-		        			<option>6</option>
-		        			<option>7</option>
-		        			<option>8</option>
-		        			<option>9</option>
-		        			<option>10</option>
-		        			<option>11</option>
-		        			<option>12</option>
-		        			<option>13</option>
-		        			<option>14</option>
-		        			<option>15</option>
-		        			<option>16</option>
-		        			<option>17</option>
-		        			<option>18</option>
-		        			<option>19</option>
-		        			<option>20</option>
-		        			<option>21</option>
-		        			<option>22</option>
-		        			<option>23</option>
-		        			<option>24</option>
-		        			<option>25</option>
-		        			<option>26</option>
-		        			<option>27</option>
-		        			<option>28</option>
-		        			<option>29</option>
-		        			<option>30</option>
-		        			<option>31</option>
-		        		</select>
-		        		<label for="pre_monthOfDogovor">Месяц</label>
-		        		<select name="pre_monthOfDogovor">
-		        			<option>января</option>
-		        			<option>февраля</option>
-		        			<option>марта</option>
-		        			<option>апреля</option>
-		        			<option>мая</option>
-		        			<option>июня</option>
-		        			<option>июля</option>
-		        			<option>августа</option>
-		        			<option>сентября</option>
-		        			<option>октября</option>
-		        			<option>ноября</option>
-		        			<option>декабря</option>
-		        		</select>
-		        		<label for="pre_yearOfDogovor">Год</label>
-		        		<select name="pre_yearOfDogovor">
-		        			<option>2000</option>
-		        			<option>2001</option>
-		        			<option>2002</option>
-		        			<option>2003</option>
-		        			<option>2004</option>
-		        			<option>2005</option>
-		        			<option>2007</option>
-		        			<option>2008</option>
-		        			<option>2009</option>
-		        			<option>2010</option>
-		        			<option>2011</option>
-		        			<option>2012</option>
-		        			<option>2013</option>
-		        			<option>2014</option>
-		        			<option>2015</option>
-		        			<option>2016</option>
-		        			</select>
-		        		</div>
+		        		<div id="pre_dayOfDogor">
+			        		<div class="input-group date">
+							  <input type="text" class="form-control" name="pre_date_of_dogovor" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+							</div>
+						</div>
+		            </div>
 
 		        	<div class="form-group">
 		        		<label for="pre_price">Цена договора</label>
@@ -293,8 +317,8 @@
 		        	</select>
 		        	</div>
 		        	<div class="form-group">
-		        		<label for="pre_area">Общая площадь</label>
-		        		<input name="pre_area" type="text" class="form-control" id=""  placeholder="42 м²">
+		        		<label for="pre_area">Общая площадь(в кв. метрах)</label>
+		        		<input name="pre_area" type="text" class="form-control" id=""  placeholder=" площадь">
 		          	</div>
 		          	<div class="form-group">
 		        		<label for="pre_adress">Адрес объекта</label>
@@ -306,79 +330,16 @@
 		          	</div>
 		          	<div class="form-group">
 		        		<label for="pre_kadastr">Кадастровый (условный) номер</label>
-		        		<input name="pre_kadastr" type="number" class="form-control" id=""  placeholder="номер">
+		        		<input name="pre_kadastr" type="text" class="form-control" id=""  placeholder="номер">
 		          	</div>
 		          	<div class="form-group">
 		        		<label for="">Дата заключения основного договора</label><br>
-		        		<label for="pre_dayOfMainDogovor">День</label>
-		        		<select name="pre_dayOfMainDogovor">
-		        			<option>1</option>
-		        			<option>2</option>
-		        			<option>3</option>
-		        			<option>4</option>
-		        			<option>5</option>
-		        			<option>6</option>
-		        			<option>7</option>
-		        			<option>8</option>
-		        			<option>9</option>
-		        			<option>10</option>
-		        			<option>11</option>
-		        			<option>12</option>
-		        			<option>13</option>
-		        			<option>14</option>
-		        			<option>15</option>
-		        			<option>16</option>
-		        			<option>17</option>
-		        			<option>18</option>
-		        			<option>19</option>
-		        			<option>20</option>
-		        			<option>21</option>
-		        			<option>22</option>
-		        			<option>23</option>
-		        			<option>24</option>
-		        			<option>25</option>
-		        			<option>26</option>
-		        			<option>27</option>
-		        			<option>28</option>
-		        			<option>29</option>
-		        			<option>30</option>
-		        			<option>31</option>
-		        		</select>
-		        		<label for="pre_monthOfMainDogovor">Месяц</label>
-		        		<select name="pre_monthOfMainDogovor">
-		        			<option>января</option>
-		        			<option>февраля</option>
-		        			<option>марта</option>
-		        			<option>апреля</option>
-		        			<option>мая</option>
-		        			<option>июня</option>
-		        			<option>июля</option>
-		        			<option>августа</option>
-		        			<option>сентября</option>
-		        			<option>октября</option>
-		        			<option>ноября</option>
-		        			<option>декабря</option>
-		        		</select>
-		        		<label for="pre_yearOfMainDogovor">Год</label>
-		        		<select name="pre_yearOfMainDogovor">
-		        			<option>2000</option>
-		        			<option>2001</option>
-		        			<option>2002</option>
-		        			<option>2003</option>
-		        			<option>2004</option>
-		        			<option>2005</option>
-		        			<option>2007</option>
-		        			<option>2008</option>
-		        			<option>2009</option>
-		        			<option>2010</option>
-		        			<option>2011</option>
-		        			<option>2012</option>
-		        			<option>2013</option>
-		        			<option>2014</option>
-		        			<option>2015</option>
-		        			<option>2016</option>
-		        			</select>
-		        		</div>
+						<div id="pre_cal_date_of_main_dogovor">
+			        		<div class="input-group date">
+							  <input type="text" class="form-control" name="pre_date_of_main_dogovor" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+							</div>
+						</div>
+		        	</div>
 		        		<div class="form-group">
 			        		<label for="pre_pricePrimary">Первоначальная оплата (задаток)</label>
 			        		<input name="pre_pricePrimary" type="number" class="form-control" id=""  placeholder="">
@@ -400,149 +361,23 @@
 				        	</div>
 				        	<div class="form-group">
 			        		<label for="">Дата регистрации обременения согласно сведениям из ЕГРП</label><br>
-			        		<label for="pre_dayOfRegistration">День</label>
-			        		<select name="pre_dayOfRegistration">
-			        			<option>1</option>
-			        			<option>2</option>
-			        			<option>3</option>
-			        			<option>4</option>
-			        			<option>5</option>
-			        			<option>6</option>
-			        			<option>7</option>
-			        			<option>8</option>
-			        			<option>9</option>
-			        			<option>10</option>
-			        			<option>11</option>
-			        			<option>12</option>
-			        			<option>13</option>
-			        			<option>14</option>
-			        			<option>15</option>
-			        			<option>16</option>
-			        			<option>17</option>
-			        			<option>18</option>
-			        			<option>19</option>
-			        			<option>20</option>
-			        			<option>21</option>
-			        			<option>22</option>
-			        			<option>23</option>
-			        			<option>24</option>
-			        			<option>25</option>
-			        			<option>26</option>
-			        			<option>27</option>
-			        			<option>28</option>
-			        			<option>29</option>
-			        			<option>30</option>
-			        			<option>31</option>
-			        		</select>
-			        		<label for="pre_monthOfRegistration">Месяц</label>
-			        		<select name="pre_monthOfRegistration">
-			        			<option>января</option>
-			        			<option>февраля</option>
-			        			<option>марта</option>
-			        			<option>апреля</option>
-			        			<option>мая</option>
-			        			<option>июня</option>
-			        			<option>июля</option>
-			        			<option>августа</option>
-			        			<option>сентября</option>
-			        			<option>октября</option>
-			        			<option>ноября</option>
-			        			<option>декабря</option>
-			        		</select>
-			        		<label for="pre_yearOfRegistration">Год</label>
-			        		<select name="pre_yearOfRegistrationr">
-			        			<option>2000</option>
-			        			<option>2001</option>
-			        			<option>2002</option>
-			        			<option>2003</option>
-			        			<option>2004</option>
-			        			<option>2005</option>
-			        			<option>2007</option>
-			        			<option>2008</option>
-			        			<option>2009</option>
-			        			<option>2010</option>
-			        			<option>2011</option>
-			        			<option>2012</option>
-			        			<option>2013</option>
-			        			<option>2014</option>
-			        			<option>2015</option>
-			        			<option>2016</option>
-			        			</select>
-			        		</div>
+				        		<div id="pre_cal_date_of_reg_obr">
+				        		<div class="input-group date">
+								  <input type="text" class="form-control" name="pre_date_of_reg_obr"  placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+								</div>
+								</div>
+							</div>
 			        		<div class="form-group">
 				        		<label for="pre_numberOfObremenenie">Номер регистрационной записи обременения</label>
-	        					<input name="pre_numberOfObremenenie"type="text" class="form-control" id=""  placeholder="номер">
+	        					<input name="pre_numberOfObremenenie"type="text" class="form-control" id="" placeholder="номер">
 				        	</div>
 							<div class="form-group">
 			        		<label for="pre_dayOfEnd">До какой даты Продавец снимет обременение</label><br>
-			        		<label for="pre_dayOfEnd">День</label>
-			        		<select name="dayOfEnd">
-			        			<option>1</option>
-			        			<option>2</option>
-			        			<option>3</option>
-			        			<option>4</option>
-			        			<option>5</option>
-			        			<option>6</option>
-			        			<option>7</option>
-			        			<option>8</option>
-			        			<option>9</option>
-			        			<option>10</option>
-			        			<option>11</option>
-			        			<option>12</option>
-			        			<option>13</option>
-			        			<option>14</option>
-			        			<option>15</option>
-			        			<option>16</option>
-			        			<option>17</option>
-			        			<option>18</option>
-			        			<option>19</option>
-			        			<option>20</option>
-			        			<option>21</option>
-			        			<option>22</option>
-			        			<option>23</option>
-			        			<option>24</option>
-			        			<option>25</option>
-			        			<option>26</option>
-			        			<option>27</option>
-			        			<option>28</option>
-			        			<option>29</option>
-			        			<option>30</option>
-			        			<option>31</option>
-			        		</select>
-			        		<label for="pre_monthOfEnd">Месяц</label>
-			        		<select name="pre_monthOfEnd">
-			        			<option>января</option>
-			        			<option>февраля</option>
-			        			<option>марта</option>
-			        			<option>апреля</option>
-			        			<option>мая</option>
-			        			<option>июня</option>
-			        			<option>июля</option>
-			        			<option>августа</option>
-			        			<option>сентября</option>
-			        			<option>октября</option>
-			        			<option>ноября</option>
-			        			<option>декабря</option>
-			        		</select>
-			        		<label for="pre_yearOfEnd">Год</label>
-			        		<select name="pre_yearOfEnd">
-			        			<option>2000</option>
-			        			<option>2001</option>
-			        			<option>2002</option>
-			        			<option>2003</option>
-			        			<option>2004</option>
-			        			<option>2005</option>
-			        			<option>2007</option>
-			        			<option>2008</option>
-			        			<option>2009</option>
-			        			<option>2010</option>
-			        			<option>2011</option>
-			        			<option>2012</option>
-			        			<option>2013</option>
-			        			<option>2014</option>
-			        			<option>2015</option>
-			        			<option>2016</option>
-			        			</select>
+			        		<div id="pre_cal_date_of_end_obr">
+				        		<div class="input-group date">
+								  <input type="text" class="form-control" name="pre_date_of_end_obr" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+								</div>			        		
+			        		</div>
 			        		</div>
 						</div>
     			 </div>
@@ -585,8 +420,7 @@
 				Я уведомлен (-а), что после размещения на Сайте персональные данные хранятся в заблокированном виде до прекращения деятельности ООО «Электронный риэлтор» как юридического лица для их возможного анализа на предмет мошенничества Пользователя в отношении третьих лиц. При этом ООО «Электронный риэлтор» не удаляет персональные данные по запросу Пользователя, основываясь на п.5 ст.21 Федерального Закона №152-ФЗ «О персональных данных».
 	      </div>
 	      <div class="modal-footer">
-	        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-	        <button type="button" class="btn btn-primary" data-dismiss="modal" >Согласен/Согласна</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal" id="pre_confirm_button">Согласен/Согласна</button>
 	      </div>
 	    </div>
 	  </div>
@@ -613,74 +447,11 @@
 	      				
 	      				<div class="form-group">
 			        		<label for="">Дата рождения</label><br>
-			        		<label for="pre_dayOfB">День</label>
-			        		<select name="pre_dayOfB">
-			        			<option>1</option>
-			        			<option>2</option>
-			        			<option>3</option>
-			        			<option>4</option>
-			        			<option>5</option>
-			        			<option>6</option>
-			        			<option>7</option>
-			        			<option>8</option>
-			        			<option>9</option>
-			        			<option>10</option>
-			        			<option>11</option>
-			        			<option>12</option>
-			        			<option>13</option>
-			        			<option>14</option>
-			        			<option>15</option>
-			        			<option>16</option>
-			        			<option>17</option>
-			        			<option>18</option>
-			        			<option>19</option>
-			        			<option>20</option>
-			        			<option>21</option>
-			        			<option>22</option>
-			        			<option>23</option>
-			        			<option>24</option>
-			        			<option>25</option>
-			        			<option>26</option>
-			        			<option>27</option>
-			        			<option>28</option>
-			        			<option>29</option>
-			        			<option>30</option>
-			        			<option>31</option>
-			        		</select>
-			        		<label for="pre_monthOfB">Месяц</label>
-			        		<select name="pre_monthOfB">
-			        			<option>января</option>
-			        			<option>февраля</option>
-			        			<option>марта</option>
-			        			<option>апреля</option>
-			        			<option>мая</option>
-			        			<option>июня</option>
-			        			<option>июля</option>
-			        			<option>августа</option>
-			        			<option>сентября</option>
-			        			<option>октября</option>
-			        			<option>ноября</option>
-			        			<option>декабря</option>
-			        		</select>
-			        		<label for="pre_yearOfB">Год</label>
-			        		<select name="pre_yearOfB">
-			        			<option>2000</option>
-			        			<option>2001</option>
-			        			<option>2002</option>
-			        			<option>2003</option>
-			        			<option>2004</option>
-			        			<option>2005</option>
-			        			<option>2007</option>
-			        			<option>2008</option>
-			        			<option>2009</option>
-			        			<option>2010</option>
-			        			<option>2011</option>
-			        			<option>2012</option>
-			        			<option>2013</option>
-			        			<option>2014</option>
-			        			<option>2015</option>
-			        			<option>2016</option>
-			        		</select>
+			        		<div id="pre_cal_birthday_of_vendor">
+				        		<div class="input-group date">
+								  <input type="text" class="form-control" name="pre_birthday_of_vendor" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+								</div>
+							</div>
 			        	</div>
 	      				<div class="form-group">
 	      					<label for="pre_passport">Паспорт</label>
@@ -693,7 +464,7 @@
 	      				<br>
 	      				<div class="form-group">
 	      				<h3 class="panel-title" >Документы, подтверждающие право собственности на отчуждаемый объект</h3>
-	      				<div class="pre-doc-example"><hr>
+	      				<div id="pre_doc_osn"><hr>
 		      				<label for="pre_doc">Документы-основания</label>
 				        		<select name="pre_doc" onchange="pre_otherOption(this);">
 				        			<option value="kuplya">Договор купли-продажи</option>
@@ -702,86 +473,22 @@
 				        			<option value="spavka">Справка ЖСК о выплаченном пае</option>
 				        			<option value="other">Иное</option>
 				        		</select>
-		            		<div id="pre_bl" style="display:none;"><input type="text" name="pre_otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div>
+		            		<div id="pre_other_text" style="display:none;"><input type="text" name="pre_otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div>
 		      			</div>
 		      			</div>
 		      				<div class="form-group">
 				        		<label for="">Дата документа</label><br>
-				        		<label for="pre_dayOfDoc">День</label>
-				        		<select name="pre_dayOfDoc">
-				        			<option>1</option>
-				        			<option>2</option>
-				        			<option>3</option>
-				        			<option>4</option>
-				        			<option>5</option>
-				        			<option>6</option>
-				        			<option>7</option>
-				        			<option>8</option>
-				        			<option>9</option>
-				        			<option>10</option>
-				        			<option>11</option>
-				        			<option>12</option>
-				        			<option>13</option>
-				        			<option>14</option>
-				        			<option>15</option>
-				        			<option>16</option>
-				        			<option>17</option>
-				        			<option>18</option>
-				        			<option>19</option>
-				        			<option>20</option>
-				        			<option>21</option>
-				        			<option>22</option>
-				        			<option>23</option>
-				        			<option>24</option>
-				        			<option>25</option>
-				        			<option>26</option>
-				        			<option>27</option>
-				        			<option>28</option>
-				        			<option>29</option>
-				        			<option>30</option>
-				        			<option>31</option>
-				        		</select>
-				        		<label for="pre_monthOfDoc">Месяц</label>
-				        		<select name="pre_monthOfDoc">
-				        			<option>января</option>
-				        			<option>февраля</option>
-				        			<option>марта</option>
-				        			<option>апреля</option>
-				        			<option>мая</option>
-				        			<option>июня</option>
-				        			<option>июля</option>
-				        			<option>августа</option>
-				        			<option>сентября</option>
-				        			<option>октября</option>
-				        			<option>ноября</option>
-				        			<option>декабря</option>
-				        		</select>
-				        		<label for="pre_yearOfDoc">Год</label>
-				        		<select name="pre_yearOfDoc">
-				        			<option>2000</option>
-				        			<option>2001</option>
-				        			<option>2002</option>
-				        			<option>2003</option>
-				        			<option>2004</option>
-				        			<option>2005</option>
-				        			<option>2007</option>
-				        			<option>2008</option>
-				        			<option>2009</option>
-				        			<option>2010</option>
-				        			<option>2011</option>
-				        			<option>2012</option>
-				        			<option>2013</option>
-				        			<option>2014</option>
-				        			<option selected >2015</option>
-				        			<option>2016</option>
-				        		</select>
+				        		<input name="pre_date_of_doc" type="text" class="form-control" id=""  placeholder="дд.мм.гггг">
 				        	</div>
-				        	<button type="button" class="btn btn-primary pre_newDoc">Добавить документ-основание</button>
-			        	<div class="form-group pre_docPlus">	      					
-	      				</div>
+				        <div class="form-group pre_docPlus"></div><!-- Сюда вставляется блок нового документа-->
+	      				<button type="button" class="btn btn-primary pre_newDoc" id="pre_add_new_doc">Добавить документ-основание</button>
 	      				<div class="form-group">
 	      					<label for="pre_svidetelstvo">Свидетельство о регистрации права собственности</label><br>Дата
-        					<input name="pre_svidetelstvo_data" type="text" class="form-control" id=""  placeholder="дд.мм.гг">Серия
+        					<div id="pre_cal_svidetelstvo_data">
+				        		<div class="input-group date">
+								  <input type="text" class="form-control" name="pre_svidetelstvo_data" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+								</div>
+							</div>Серия
         					<input name="pre_svidetelstvo_serial" type="text" class="form-control" id=""  placeholder="серия">Номер
         					№<input name="pre_svidetelstvo_number" type="text" class="form-control" id=""  placeholder="номер">
 	      				</div>
@@ -814,74 +521,11 @@
 	      						</div>
 			      				<div class="form-group">
 					        		<label for="">Дата рождения</label><br>
-					        		<label for="pre_dayOfB_of_buyer">День</label>
-					        		<select name="pre_dayOfB_of_buyer">
-					        			<option>1</option>
-					        			<option>2</option>
-					        			<option>3</option>
-					        			<option>4</option>
-					        			<option>5</option>
-					        			<option>6</option>
-					        			<option>7</option>
-					        			<option>8</option>
-					        			<option>9</option>
-					        			<option>10</option>
-					        			<option>11</option>
-					        			<option>12</option>
-					        			<option>13</option>
-					        			<option>14</option>
-					        			<option>15</option>
-					        			<option>16</option>
-					        			<option>17</option>
-					        			<option>18</option>
-					        			<option>19</option>
-					        			<option>20</option>
-					        			<option>21</option>
-					        			<option>22</option>
-					        			<option>23</option>
-					        			<option>24</option>
-					        			<option>25</option>
-					        			<option>26</option>
-					        			<option>27</option>
-					        			<option>28</option>
-					        			<option>29</option>
-					        			<option>30</option>
-					        			<option>31</option>
-					        		</select>
-					        		<label for="pre_monthOfB_of_buyer">Месяц</label>
-					        		<select name="pre_monthOfB_of_buyer">
-					        			<option>января</option>
-					        			<option>февраля</option>
-					        			<option>марта</option>
-					        			<option>апреля</option>
-					        			<option>мая</option>
-					        			<option>июня</option>
-					        			<option>июля</option>
-					        			<option>августа</option>
-					        			<option>сентября</option>
-					        			<option>октября</option>
-					        			<option>ноября</option>
-					        			<option>декабря</option>
-					        		</select>
-					        		<label for="pre_year_OfB_of_buyer">Год</label>
-					        		<select name="pre_year_OfB_of_buyer">
-					        			<option>2000</option>
-					        			<option>2001</option>
-					        			<option>2002</option>
-					        			<option>2003</option>
-					        			<option>2004</option>
-					        			<option>2005</option>
-					        			<option>2007</option>
-					        			<option>2008</option>
-					        			<option>2009</option>
-					        			<option>2010</option>
-					        			<option>2011</option>
-					        			<option>2012</option>
-					        			<option>2013</option>
-					        			<option>2014</option>
-					        			<option>2015</option>
-					        			<option>2016</option>
-					        		</select>
+								    <div id="pre_cal_birthday_of_buyer">
+						        		<div class="input-group date">
+										  <input type="text" class="form-control" name="pre_birthday_of_buyer" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span>
+										</div>
+									</div>
 					        	</div>
 			      				<div class="form-group">
 			      					<label for="pre_passport_of_buyer">Паспорт</label>
@@ -934,8 +578,8 @@
 </form> 
 
 <!-- /Pre-dogovor -->
-
-    <!-- Dogovor -->
+<!--____________________________________________________________________________________________ -->
+<!-- Dogovor -->
     <div id="dogovor" style="display:none">
 	<form class="" method="post" action="/convert.php" name="mainForm">
 	<input type="hidden" value="dogovor" name="type_doc">
@@ -1075,8 +719,8 @@
         	</select>
         	</div>
         	<div class="form-group">
-        		<label for="area">Общая площадь</label>
-        		<input name="area" type="text" class="form-control" id=""  placeholder="42 м²">
+        		<label for="area">Общая площадь(в кв. метрах)</label>
+        		<input name="area" type="text" class="form-control" id=""  placeholder="площадь">
           	</div>
           	<div class="form-group">
         		<label for="adress">Адрес объекта</label>
@@ -1084,7 +728,7 @@
           	</div>
           	<div class="form-group">
         		<label for="kadastr">Кадастровый (условный) номер</label>
-        		<input name="kadastr" type="number" class="form-control" id=""  placeholder="номер">
+        		<input name="kadastr" type="text" class="form-control" id=""  placeholder="номер">
           	</div>
           	<div class="form-group">
         		<label for="act">Передаточный акт</label>
@@ -1455,14 +1099,7 @@
   		</form>
 
 	
-    <!-- /Dogovor -->
-	
-	
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- /Dogovor -->   
    			<!-- Modal -->
     <div class="modal fade" id="printDogovorForm" tabindex="-1" role="dialog" aria-labelledby="printLabel" aria-hidden="true">
 	  <div class="modal-dialog">

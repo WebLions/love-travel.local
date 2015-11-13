@@ -1,0 +1,18 @@
+<div class="form-group">
+	<div id="pre_doc_osn"><hr>
+		<label for="pre_doc">Документы-основания</label>
+			<select name="pre_doc" onchange="pre_otherOption(this);">
+				<option value="kuplya">Договор купли-продажи</option>
+				<option value="darenie">Договор дарения</option>
+				<option value="meni">Договор мены</option>
+				<option value="spavka">Справка ЖСК о выплаченном пае</option>
+				<option value="other">Иное</option>
+			</select>
+	<div id="pre_other_text" style="display:none;"><input type="text" name="pre_otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div>
+	</div>
+</div>
+<div class="form-group">
+	<label for="">Дата документа</label><br>
+	<input name="pre_date_of_doc" type="text" class="form-control" id=""  placeholder="дд.мм.гггг">
+</div>
+
