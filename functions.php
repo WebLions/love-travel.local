@@ -512,3 +512,5 @@ function get_year_from_number($number)
 	}
 	return $result;
 }
+
+?>

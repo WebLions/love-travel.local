@@ -273,7 +273,7 @@ var i=2; // для построение новых блоков дополнит
     <!-- Pre-dogovor -->
     <!-- Osnova -->
     <div id ="pre_dogovor" style="display:none">
-	<form class="" method="post" action="/convert.php" name="pre_mainForm">
+	<form class="" method="post" action="convert.php" name="pre_mainForm">
 	<input type="hidden" value="pre_dogovor" name="type_doc">
      <div class="row">
     	<div class="col-md-12">
@@ -617,7 +617,7 @@ var i=2; // для построение новых блоков дополнит
 <!--____________________________________________________________________________________________ -->
 <!-- Dogovor -->
     <div id="dogovor" style="display:none">
-	<form class="" method="post" action="/convert.php" name="mainForm">
+	<form class="" method="post" action="convert.php" name="mainForm">
 	<input type="hidden" value="dogovor" name="type_doc">
 
     <!-- Osnova -->
@@ -903,7 +903,7 @@ var i=2; // для построение новых блоков дополнит
 	      </div>
 	      <div class="modal-body">
 	      
-					<form method="post" action="/convert.php" name="emailForm">		
+					<form method="post" action="convert.php" name="emailForm">		
 			      	<label for="email">Введите ваш e-mail</label>
 		        	<input name="email" type="text" class="form-control" id=""  placeholder="почта@почта.почта">
 		        	<p>*На указанный адрес мы вышлем копию договора. В случае необходимости вы всегда можете его отредактировать и сохранить. При закрытии этой страницы все введенные данные не сохраняются.</p>

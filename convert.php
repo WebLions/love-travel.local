@@ -226,11 +226,11 @@ send_email_to_db($to);*/
 <p>На ваш почтовый ящик былло выслано письмо с документом. Вы также можете<a href="download_doc.php">Скачать документ</a></p>
 <pre>
 <?
-
+/*
 echo $pre_doc_others;
 
 echo 'Тип документа:'.$_POST['type_doc'] . '<br>';
 
-var_dump($_POST);
+var_dump($_POST);*/
 ?>
 </pre>
