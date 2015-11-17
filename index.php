@@ -889,7 +889,6 @@ var i=2; // для построение новых блоков дополнит
 			<div id = "buttonPrint" class="btn btn-primary">Распечатать договор</div>
 		</div>
     </div>
-  		</form>
 
 	
     <!-- /Dogovor -->   
@@ -903,11 +902,11 @@ var i=2; // для построение новых блоков дополнит
 	      </div>
 	      <div class="modal-body">
 	      
-					<form method="post" action="convert.php" name="emailForm">		
+					
 			      	<label for="email">Введите ваш e-mail</label>
 		        	<input name="email" type="text" class="form-control" id=""  placeholder="почта@почта.почта">
 		        	<p>*На указанный адрес мы вышлем копию договора. В случае необходимости вы всегда можете его отредактировать и сохранить. При закрытии этой страницы все введенные данные не сохраняются.</p>
-			   		</form>
+			   		
 	      </div>
 	      <div class="modal-footer">
 	        <button id = "buttonEndOfTimes" class="btn btn-primary">Распечатать договор</button>
@@ -916,6 +915,7 @@ var i=2; // для построение новых блоков дополнит
 	  </div>
 	</div>
 	
+  		</form>
     </div>
 </body>
 </html>

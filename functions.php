@@ -216,7 +216,7 @@ function get_flat($flat)
 }
 // ----------------------------------------------------------------------------------------
 
-function XMail( $from, $to, $subj, $text, $filename)
+function XMail($from, $to, $subj, $text, $filename)
  { 
     $f         = fopen($filename,"rb"); 
     $un        = strtoupper(uniqid(time())); 
