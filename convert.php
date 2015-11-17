@@ -169,7 +169,7 @@ elseif($_POST['type_doc'] == 'dogovor')
 	$document->setValue('way_of_act', get_way_of_act() );//
 	
 	//-------------------------------------------------------------------------------------
-	//Блок с выводом документов-оснований
+	//Блок с выводом документов-оснований//
 	//-------------------------------------------------------------------------------------
 	$document->setValue('doc_osn', get_doc_osn($_POST['doc_osn1'],$_POST['otherOptionInput1']) );//
 	$document->setValue('date_of_doc_osn', $_POST['date_of_doc_osn1']);//

@@ -588,7 +588,7 @@ var i=2; // для построение новых блоков дополнит
    
 
 </div><!--Закрывает блок для скрытия продавца и покупателя -->
-<!-- Модальное окно с эмаил -->
+<!-- Модальное окно с email -->
 <div class="modal fade" id="pre_printDogovorForm" tabindex="-1" role="dialog" aria-labelledby="pre_printLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
