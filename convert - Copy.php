@@ -22,37 +22,30 @@ if ($_POST['type_doc'] == 'pre_dogovor')
 	$document = $PHPWord->loadTemplate('pre_dogovor.docx'); //шаблон
 	// Замена переменных
 	$document->setValue('city', $_POST['pre_placeOfDogovor']);//Место заключения договора
-	$document->setValue('dayOfDogovor', get_day_from_number($pre_day_of_dogovor) );//Дата заключения договора: день
-	$document->setValue('monthOfDogovor', get_month_from_number($pre_month_of_dogovor) );//Дата заключения договора: месяц
-	$document->setValue('yearOfDogovor', get_year_from_number($pre_year_of_dogovor) );//Дата заключения договора: год
+	$document->setValue('dayOfDogovor', $pre_day_of_dogovor);//Дата заключения договора: день
+	$document->setValue('monthOfDogovor', $pre_month_of_dogovor);//Дата заключения договора: месяц
+	$document->setValue('yearOfDogovor', $pre_year_of_dogovor);//Дата заключения договора: год
 	$document->setValue('pre_fio', $_POST['pre_fio']); //ФИО продавца
 	$document->setValue('birthday_of_vendor', $_POST['pre_birthday_of_vendor']); //Дата рождения продавца
 		
 	$document->setValue('pre_passport', $_POST['pre_passport']); 
-	$document->setValue('pre_adressOfRegistration_сity', $_POST['pre_adressOfRegistration_city']); 
-	$document->setValue('pre_adressOfRegistration_street', $_POST['pre_adressOfRegistration_street']); 
-	$document->setValue('pre_adressOfRegistration_house', $_POST['pre_adressOfRegistration_house']); 
-	$document->setValue('pre_adressOfRegistration_flat', $_POST['pre_adressOfRegistration_flat']); 
+	$document->setValue('pre_adressOfRegistration', $_POST['pre_adressOfRegistration']); 
 	$document->setValue('pre_fio_of_buyer', $_POST['pre_fio_of_buyer']); 
 	$document->setValue('pre_birthday_of_buyer', $_POST['pre_birthday_of_buyer']); 
 	$document->setValue('pre_passport_of_buyer', $_POST['pre_passport_of_buyer']);
 	//Полы 
-	$document->setValue('pre_sex_vendor_reg',get_sex_reg($_POST['pre_sex_vendor']) ); 
-	$document->setValue('pre_sex_vendor_im', get_sex_im($_POST['pre_sex_vendor']) ); 
-	$document->setValue('pre_sex_buyer_reg', get_sex_reg($_POST['pre_sex_buyer']) ); 
-	$document->setValue('pre_sex_buyer_im', get_sex_im($_POST['pre_sex_buyer']) ); 
+	$document->setValue('pre_sex_vendor_reg',pre_sex_vendor_reg()); 
+	$document->setValue('pre_sex_vendor_im', pre_sex_vendor_im()); 
+	$document->setValue('pre_sex_buyer_reg', pre_sex_buyer_reg()); 
+	$document->setValue('pre_sex_buyer_im', pre_sex_buyer_im()); 
 
-	$document->setValue('pre_adressOfRegistration_buyer_city', $_POST['pre_adressOfRegistration_buyer_city']); 
-	$document->setValue('pre_adressOfRegistration_buyer_street', $_POST['pre_adressOfRegistration_buyer_street']); 
-	$document->setValue('pre_adressOfRegistration_buyer_house', $_POST['pre_adressOfRegistration_buyer_house']); 
-	$document->setValue('pre_adressOfRegistration_buyer_flat', $_POST['pre_adressOfRegistration_buyer_flat']); 
+	$document->setValue('pre_adressOfRegistration_buyer', $_POST['pre_adressOfRegistration_buyer']); 
 	$document->setValue('pre_date_of_main_dogovor', $_POST['pre_date_of_main_dogovor']);//Дата заключения основного договора
 	$document->setValue('pre_flat', get_flat($_POST['pre_flat'])); 
 	$document->setValue('pre_area_number', $_POST['pre_area']); 
-	$document->setValue('pre_area_string', num2str_flat($_POST['pre_area']));
+	$document->setValue('pre_area_string', num2str($_POST['pre_area']));
 	$document->setValue('pre_floor', $_POST['pre_floor']); 
-	$document->setValue('pre_adress_city', $_POST['pre_adress_city']); 
-	$document->setValue('pre_adress_street', $_POST['pre_adress_street']); 
+	$document->setValue('pre_adress', $_POST['pre_adress']); 
 	$document->setValue('pre_adress_house', $_POST['pre_adress_house']); 
 	$document->setValue('pre_adress_house_string', num2str_flat($_POST['pre_adress_house'])); 
 	$document->setValue('pre_adress_flat', $_POST['pre_adress_flat']); 
@@ -75,29 +68,35 @@ if ($_POST['type_doc'] == 'pre_dogovor')
 	$document->setValue('pre_price_number', $_POST['pre_price']); 
 	$document->setValue('pre_price_string', num2str_money($_POST['pre_price'])); 
 
-	$document->setValue('pre_doc', get_doc_osn($_POST['pre_doc_osn1'],$_POST['pre_otherOptionInput1'])); 
-	$document->setValue('pre_date_of_doc', $_POST['pre_date_of_doc1']); 
+	$pre_doc = check_pre_doc();
+	$document->setValue('pre_doc', $pre_doc); 
+	$document->setValue('pre_date_of_doc', $_POST['pre_date_of_doc']); 
 
 	// Составление блока дополнитеных документов
 	if (isset($_POST['pre_doc_osn2']) && isset($_POST['pre_date_of_doc2']))
 	{
-		$pre_doc_others = '<w:br/>- ' . get_doc_osn($_POST['pre_doc_osn2'],$_POST['pre_otherOptionInput2']) . ' от '. $_POST['pre_date_of_doc2'].'г.';
+		$pre_doc2 =  check_pre_doc2();
+		$pre_doc_others =  '<w:br/>-' . $pre_doc2 . ' от '. $_POST['pre_date_of_doc2'].'г.';
 	}
 	if (isset($_POST['pre_doc_osn3']) && isset($_POST['pre_date_of_doc3']))
 	{
-		$pre_doc_others .= '<w:br/>- ' . get_doc_osn($_POST['pre_doc_osn3'],$_POST['pre_otherOptionInput3']) . ' от '. $_POST['pre_date_of_doc3'].'г.';
+		$pre_doc3 =  check_pre_doc3();
+		$pre_doc_others .=  '<w:br/>-' . $pre_doc3 . ' от '. $_POST['pre_date_of_doc3'].'г.';
 	}
 	if (isset($_POST['pre_doc_osn4']) && isset($_POST['pre_date_of_doc4']))
 	{
-		$pre_doc_others .= '<w:br/>- ' . get_doc_osn($_POST['pre_doc_osn4'],$_POST['pre_otherOptionInput4']) . ' от '. $_POST['pre_date_of_doc4'].'г.';
+		$pre_doc4 =  check_pre_doc4();
+		$pre_doc_others .=  '<w:br/>-' . $pre_doc4 . ' от '. $_POST['pre_date_of_doc4'].'г.';
 	}
 	if (isset($_POST['pre_doc_osn5']) && isset($_POST['pre_date_of_doc5']))
 	{
-		$pre_doc_others .= '<w:br/>- ' . get_doc_osn($_POST['pre_doc_osn5'],$_POST['pre_otherOptionInput5']) . ' от '. $_POST['pre_date_of_doc5'].'г.';
+		$pre_doc5 =  check_pre_doc5();
+		$pre_doc_others .=  '<w:br/>-' . $pre_doc5 . ' от '. $_POST['pre_date_of_doc5'].'г.';
 	}
 	if (isset($_POST['pre_doc_osn6']) && isset($_POST['pre_date_of_doc6']))
 	{
-		$pre_doc_others .= '<w:br/>- ' . get_doc_osn($_POST['pre_doc_osn6'],$_POST['pre_otherOptionInput6']) . ' от '. $_POST['pre_date_of_doc6'].'г.';
+		$pre_doc6 =  check_pre_doc6();
+		$pre_doc_others .=  '<w:br/>-' . $$pre_doc6 . ' от '. $_POST['pre_date_of_doc6'].'г.';
 	}
 
 	// ------
@@ -125,9 +124,8 @@ elseif($_POST['type_doc'] == 'dogovor')
 	//-------------------------------------------------------------------------------------
 	// Замена переменных
 	$document->setValue('city', $_POST['placeOfDogovor']); 
-	$document->setValue('dayOfDogovor', get_day_from_number($day_of_dogovor) );//Дата заключения договора: день
-	$document->setValue('monthOfDogovor', get_month_from_number($month_of_dogovor) );//Дата заключения договора: месяц
-	$document->setValue('year_of_dogovor', get_year_from_number($year_of_dogovor) );//Дата заключения договора: месяц
+	$document->setValue('dayOfDogovor', $pre_day_of_dogovor);//Дата заключения договора: день
+	$document->setValue('monthOfDogovor', $pre_month_of_dogovor);//Дата заключения договора: месяц
 	$document->setValue('fio_of_vendor', $_POST['fio_of_vendor']);//
 	$document->setValue('birthday_of_vendor', $_POST['birthday_of_vendor']);//
 	$document->setValue('passport', $_POST['passport']);//
@@ -137,23 +135,15 @@ elseif($_POST['type_doc'] == 'dogovor')
 	$document->setValue('sex_buyer_reg', get_sex_reg($_POST['sex_buyer']) );//
 	$document->setValue('sex_buyer_im', get_sex_im($_POST['sex_buyer']) );//
 
-	$document->setValue('adressOfRegistration_city', $_POST['adressOfRegistration_city']);//
-	$document->setValue('adressOfRegistration_street', $_POST['adressOfRegistration_street']);//
-	$document->setValue('adressOfRegistration_house', $_POST['adressOfRegistration_house']);//
-	$document->setValue('adressOfRegistration_flat', $_POST['adressOfRegistration_flat']);//
+	$document->setValue('adressOfRegistration', $_POST['adressOfRegistration']);//
 	$document->setValue('fio_of_buyer', $_POST['fio_of_buyer']);//
 	$document->setValue('birthday_of_buyer', $_POST['birthday_of_buyer']);//
 	$document->setValue('passport_of_buyer', $_POST['passport_of_buyer']);//
-	$document->setValue('adressOfRegistration_buyer_city', $_POST['adressOfRegistration_buyer_city']);//
-	$document->setValue('adressOfRegistration_buyer_street', $_POST['adressOfRegistration_buyer_street']);//
-	$document->setValue('adressOfRegistration_buyer_house', $_POST['adressOfRegistration_buyer_house']);//
-	$document->setValue('adressOfRegistration_buyer_flat', $_POST['adressOfRegistration_buyer_flat']);//
+	$document->setValue('adressOfRegistration_buyer', $_POST['adressOfRegistration_buyer']);//
 	$document->setValue('area', $_POST['area']);//
-	$document->setValue('area_string', num2str_flat($_POST['area']) );//
+	$document->setValue('area_string', num2str($_POST['area']) );//
 	$document->setValue('floor', $_POST['floor']);//
-	$document->setValue('flat', $_POST['flat']);//
-	$document->setValue('adress_city', $_POST['adress_city']);//
-	$document->setValue('adress_street', $_POST['adress_street']);//
+	$document->setValue('adress}', $_POST['adress}']);//
 	$document->setValue('adress_house', $_POST['adress_house']);//
 	$document->setValue('adress_house_string', num2str_flat($_POST['adress_house']) );//
 	$document->setValue('adress_flat', $_POST['adress_flat']);//
@@ -166,44 +156,16 @@ elseif($_POST['type_doc'] == 'dogovor')
 	$document->setValue('date_of_reg_svd', $_POST['date_of_reg_svd']);//
 	$document->setValue('price', $_POST['price']);//
 	$document->setValue('price_string', num2str_money($_POST['price']) );//
-	$document->setValue('way_of_act', get_way_of_act() );//
 	
-	//-------------------------------------------------------------------------------------
-	//Блок с выводом документов-оснований
-	//-------------------------------------------------------------------------------------
-	$document->setValue('doc_osn', get_doc_osn($_POST['doc_osn1'],$_POST['otherOptionInput1']) );//
-	$document->setValue('date_of_doc_osn', $_POST['date_of_doc_osn1']);//
-
-	//Вывод дополнительных документов
-
+	//Блок с выводом документов-оснований. Доделай вывод дополнительных документов.
+	$document->setValue('doc_osn', $_POST['doc_osn']);//
+	$document->setValue('date_of_doc_osn', $_POST['date_of_doc_osn']);//
 	
-	if (isset($_POST['doc_osn2']) && isset($_POST['date_of_doc_osn2']) )
-	{
-		$doc_osn_others =  '<w:br/>- ' . get_doc_osn($_POST['doc_osn2'],$_POST['otherOptionInput2']) . ' от '. $_POST['date_of_doc_osn2'].'г.';
-	}
-	if (isset($_POST['doc_osn3']) && isset($_POST['date_of_doc_osn3']) )
-	{
-		$doc_osn_others .=  '<w:br/>- ' . get_doc_osn($_POST['doc_osn3'],$_POST['otherOptionInput3']) . ' от '. $_POST['date_of_doc_osn3'].'г.';
-	}
-	if (isset($_POST['doc_osn4']) && isset($_POST['date_of_doc_osn4']) )
-	{
-		$doc_osn_others .=  '<w:br/>- ' . get_doc_osn($_POST['doc_osn4'],$_POST['otherOptionInput4']) . ' от '. $_POST['date_of_doc_osn4'].'г.';
-	}
-	if (isset($_POST['doc_osn5']) && isset($_POST['date_of_doc_osn5']) )
-	{
-		$doc_osn_others .=  '<w:br/>- ' . get_doc_osn($_POST['doc_osn5'],$_POST['otherOptionInput5']) . ' от '. $_POST['date_of_doc_osn5'].'г.';
-	}
-	if (isset($_POST['doc_osn6']) && isset($_POST['date_of_doc_osn6']) )
-	{
-		$doc_osn_others .=  '<w:br/>- ' . get_doc_osn($_POST['doc_osn6'],$_POST['otherOptionInput6']) . ' от '. $_POST['date_of_doc_osn6'].'г.';
-	}
-	
-	$document->setValue('doc_osn_others', $doc_osn_others );//
-	
+	$document->setValue('way_of_act', get_way_of_act() );//Дата заключения договора: год
 	
 	//-------------------------------------------------------------------------------------
 
-	$name_of_file = time() .'dogovor_full.docx';
+	$name_of_file = time() .'_pre_dogovor_full.docx';
 	setcookie('name_of_doc',$name_of_file);
 	$document->save($name_of_file); // Сохранение документа
 }	

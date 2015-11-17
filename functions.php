@@ -40,7 +40,7 @@ function num2str_money($num) {
 		} //foreach
 	}
 	else $out[] = $nul;
-	$out[] = morph(intval($rub), $unit[1][0],$unit[1][1],$unit[1][2]); // rub
+	//$out[] = morph(intval($rub), $unit[1][0],$unit[1][1],$unit[1][2]); // rub
 	//$out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
 	return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
 }
@@ -85,16 +85,7 @@ function num2str($num) {
 	return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
 }
 // ----------------------------------------------------------------------------------------
-function morph($n, $f1, $f2, $f5) {
-	$n = abs(intval($n)) % 100;
-	if ($n>10 && $n<20) return $f5;
-	$n = $n % 10;
-	if ($n>1 && $n<5) return $f2;
-	if ($n==1) return $f1;
-	return $f5;
-}
 
-// ----------------------------------------------------------------------------------------
 function num2str_flat($num) {
 	$nul='ноль';
 	$ten=array(
@@ -105,8 +96,8 @@ function num2str_flat($num) {
 	$tens=array(2=>'двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят' ,'восемьдесят','девяносто');
 	$hundred=array('','сто','двести','триста','четыреста','пятьсот','шестьсот', 'семьсот','восемьсот','девятьсот');
 	$unit=array( // Units
-		array('десятая' ,'десятых' ,'десятых',	 1),
-		array('целая'   ,'целых'   ,'целых'    ,0),
+		array('десятая' ,'десятых' ,'десятых',	 1),//array('десятая' ,'десятых' ,'десятых',	 1),
+		array('целая'   ,'целых'   ,'целых'    ,0),//array('целая'   ,'целых'   ,'целых'    ,0),
 		array('тысяча'  ,'тысячи'  ,'тысяч'     ,1),
 		array('миллион' ,'миллиона','миллионов' ,0),
 		array('миллиард','милиарда','миллиардов',0),
@@ -133,73 +124,71 @@ function num2str_flat($num) {
 	//$out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
 	return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
 }
+// ----------------------------------------------------------------------------------------
+
+function morph($n, $f1, $f2, $f5) {
+	$n = abs(intval($n)) % 100;
+	if ($n>10 && $n<20) return $f5;
+	$n = $n % 10;
+	if ($n>1 && $n<5) return $f2;
+	if ($n==1) return $f1;
+	return $f5;
+}
+
+// ----------------------------------------------------------------------------------------
 //Конец
 
 //Функция вывода документа-договора
 // ----------------------------------------------------------------------------------------
-function check_pre_doc()
+function get_doc_osn($doc_osn, $other_option_input = null)
 {
-	switch ($_POST['pre_doc']) 
+	switch ($doc_osn) 
 	{
 		case 'kuplya':
-			$pre_doc = 'Договор купли-продажи';
+			$result = 'Договор купли-продажи';
 			break;
 		case 'darenie':
-			$pre_doc = 'Договор дарения';
+			$result = 'Договор дарения';
 			break;
 		case 'meni':
-			$pre_doc = 'Договор мены';
+			$result = 'Договор мены';
 			break;
 		case 'spavka':
-			$pre_doc = 'Справка ЖСК о выплаченном пае';
+			$result = 'Справка ЖСК о выплаченном пае';
 			break;
 		case 'other':
-			$pre_doc = $_POST['pre_otherOptionInput'];
+			$result = $other_option_input;
 			break;
 		
 		default:
-			$pre_doc = 'Вы не выбрали тип документа';
+			$result = 'Вы не выбрали тип документа';
 			break;
 	}
-return $pre_doc;
+return $result;
 }
 
 // ----------------------------------------------------------------------------------------
 //Блок функций сколнения слов по половому признаку
 //Начало
-function pre_sex_vendor_reg()
+function get_sex_reg($sex)
 {
-	if ($_POST['pre_sex_vendor'] == 'male')
-		return 'ан';
-	elseif ($_POST['pre_sex_vendor'] == 'female')
-		return 'ана';
+	if ($sex == 'male')
+		{$ending = 'ан';}
+	elseif ($sex == 'female')
+		{$ending = 'ана';}
+	return $ending;
 }
 // ----------------------------------------------------------------------------------------
-function pre_sex_buyer_reg()
+
+function get_sex_im($sex)
 {
-	if ($_POST['pre_sex_buyer'] == 'male')
-		return 'ан';
-	elseif ($_POST['pre_sex_buyer'] == 'female')
-		return 'ана';
-}
-// ----------------------------------------------------------------------------------------
-function pre_sex_vendor_im()
-{
-	if ($_POST['pre_sex_vendor'] == 'male')
-		return 'ый';
-	elseif ($_POST['pre_sex_vendor'] == 'female')
-		return 'ая';
-}
-// ----------------------------------------------------------------------------------------
-function pre_sex_buyer_im()
-{
-	if ($_POST['pre_sex_buyer'] == 'male')
-		return 'ый';
-	elseif ($_POST['pre_sex_buyer'] == 'female')
-		return 'ая';
+	if ($sex == 'male')
+		{$ending = 'ый';}
+	elseif ($sex == 'female')
+		{$ending = 'ая';}
+	return $ending;
 }
 //Конец
-
 // ----------------------------------------------------------------------------------------
 //Функция склонения кол-во комнат
 function get_flat($flat)
@@ -252,3 +241,274 @@ function XMail( $from, $to, $subj, $text, $filename)
     return @mail("$to", "$subj", $zag, $head); 
 } 
 // ----------------------------------------------------------------------------------------
+function get_way_of_act()
+{
+	if ($_POST['act'] == 'yes')
+		{$verdict = 'путем подписания передаточного акта';}
+	elseif ($_POST['act'] == 'no') 
+		{$verdict = 'путем подписания настоящего договора без составления передаточного акта';}
+	return $verdict;
+}
+// ----------------------------------------------------------------------------------------
+// Функции преобразования числа в строку (дату)
+// ----------------------------------------------------------------------------------------
+
+function get_day_from_number($number)
+{
+	switch ($number) 
+	{
+		case '01':
+			$result = 'первое';
+			break;
+
+		case '02':
+			$result = 'второе';
+			break;
+
+		case '03':
+			$result = 'третье';
+			break;
+
+		case '04':
+			$result = 'четвертое';
+			break;
+
+		case '05':
+			$result = 'пятое';
+			break;
+
+		case '06':
+			$result = 'шестое';
+			break;
+
+		case '07':
+			$result = 'седьмое';
+			break;
+
+		case '08':
+			$result = 'восьмое';
+			break;
+
+		case '09':
+			$result = 'девятое';
+			break;
+
+		case '10':
+			$result = 'десятое';
+			break;
+
+		case '11':
+			$result = 'одинадцатое';
+			break;
+
+		case '12':
+			$result = 'двенадцатое';
+			break;
+
+		case '13':
+			$result = 'тринадцатое';
+			break;
+
+		case '14':
+			$result = 'четырнадцатое';
+			break;
+
+		case '15':
+			$result = 'пятнадцатое';
+			break;
+
+		case '16':
+			$result = 'шестнадцатое';
+			break;
+
+		case '17':
+			$result = 'семнадцатое';
+			break;
+
+		case '18':
+			$result = 'восемнадцатое';
+			break;
+
+		case '19':
+			$result = 'девятнадцатое';
+			break;
+
+		case '20':
+			$result = 'двадцатое';
+			break;
+
+		case '21':
+			$result = 'двадцать первое';
+			break;
+
+		case '22':
+			$result = 'двадцать второе';
+			break;
+
+		case '23':
+			$result = 'двадцать третье';
+			break;
+
+		case '24':
+			$result = 'двадцать четвертое';
+			break;
+
+		case '25':
+			$result = 'двадцать пятое';
+			break;
+
+		case '26':
+			$result = 'двадцать шестое';
+			break;
+
+		case '27':
+			$result = 'двадцать седьмое';
+			break;
+
+		case '28':
+			$result = 'двадцать восьмое';
+			break;
+
+		case '29':
+			$result = 'двадцать девятое';
+			break;
+
+		case '30':
+			$result = 'тридцатое';
+			break;
+
+		case '31':
+			$result = 'тридцать первое';
+			break;
+		
+		default:
+			$result = 'Ошибка. Введенно неверное число дня';
+			break;		
+	}
+	return $result;
+}
+function get_month_from_number($number)
+{
+	switch ($number) 
+	{
+		case '01':
+			$result = 'января';
+			break;
+
+		case '02':
+			$result = 'февраля';
+			break;
+
+		case '03':
+			$result = 'марта';
+			break;
+
+		case '04':
+			$result = 'апреля';
+			break;
+
+		case '05':
+			$result = 'мая';
+			break;
+
+		case '06':
+			$result = 'июня';
+			break;
+
+		case '07':
+			$result = 'июля';
+			break;
+
+		case '08':
+			$result = 'августа';
+			break;
+
+		case '09':
+			$result = 'сентября';
+			break;
+
+		case '10':
+			$result = 'октября';
+			break;
+
+		case '11':
+			$result = 'ноября';
+			break;
+
+		case '12':
+			$result = 'декабря';
+			break;
+	
+		default:
+			$result = 'Ошибка. Введенно неверное число месяца';
+			break;	
+	}
+	return $result;
+}
+function get_year_from_number($number)
+{
+	switch ($number) {
+
+		//Идет обработка с 2007 по 2020 год. Добавь тебе нужный год по шаблону ниже.
+		case '2007':
+			$result = 'две тысячи седьмого года';
+			break;
+
+		case '2008':
+			$result = 'две тысячи восьмого года';
+			break;
+
+		case '2009':
+			$result = 'две тысячи девятого года';
+			break;
+
+		case '2010':
+			$result = 'две тысячи десятого года';
+			break;
+
+		case '2011':
+			$result = 'две тысячи одинадцатого года';
+			break;
+
+		case '2012':
+			$result = 'две тысячи двенадцатого года';
+			break;
+
+		case '2013':
+			$result = 'две тысячи тринадцатого года';
+			break;
+
+		case '2014':
+			$result = 'две тысячи четырнадцатого года';
+			break;
+
+		case '2015':
+			$result = 'две тысячи пятнадцатого года';
+			break;
+
+		case '2016':
+			$result = 'две тысячи шестнадцатого года';
+			break;
+
+		case '2017':
+			$result = 'две тысячи семьнадцатого года';
+			break;
+
+		case '2018':
+			$result = 'две тысячи восемнадцатого года';
+			break;
+
+		case '2019':
+			$result = 'две тысячи девятнадцатого года';
+			break;
+
+		case '2020':
+			$result = 'две тысячи двадцатого года';
+			break;
+		
+		default:
+			$result = 'Ошибка. Вы выбрали неверный год';
+			break;
+	}
+	return $result;
+}

@@ -1,0 +1,11 @@
+Для доп. доков
+var previous = i-1;
+			var previous_doc = "pre_doc_osn"+previous;
+			if($(#"previous_doc").val() != 'choose')	
+			{
+
+			}
+			else
+		   	{
+		   		alert('Заполните поля предыдущего документа');
+		   	}

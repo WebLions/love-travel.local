@@ -57,15 +57,11 @@ var i=2; // для построение новых блоков дополнит
 	   	});
   		// -------------------------------------------------------------------------------
 		$("#dogovor_pact").bind("change click", function () {
-	   	  $('#dogovor_myModalCheck').modal();   	  
+	   	  $('#dogovor_myModalCheck').modal();
+	   	  $("#pact-text").show();
+	   	  
 		});
-  		// -------------------------------------------------------------------------------
-		$("#confirm_button").bind("change click", function() {
-			$("#pact_text").show();
-			$("#vendor_and_buyer_block").show();
-			$("#bot_btn").show();
-			$("html, body").delay(360).animate({scrollTop: $('#pact_text').offset().top }, 360);
-		});
+
   		// -------------------------------------------------------------------------------
 		$('#pre_add_new_doc').click(function()			
 		{
@@ -75,11 +71,11 @@ var i=2; // для построение новых блоков дополнит
 		   	
 		});
   		// -------------------------------------------------------------------------------
-		$('#add_new_doc').click(function()
+		$('.newDoc').click(function()
 		{
 			
-			var new_doc='<div class="form-group"><div id="doc_osn'+i+'"><hr><label for="doc">Документы-основания</label><select name="doc_osn'+i+'"onchange="otherOptionForDinamic(this);"><option value="choose">Нажмите чтобы выбрать</option><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="other_text'+i+'" style="display:none"><input type="text" name="otherOptionInput'+i+'"value="" class="form-control" placeholder="введите название документа"></div></div></div><div class="form-group"><label for="">Дата документа</label><br><input name="date_of_doc_osn'+i+'" type="text" class="form-control" id="" placeholder="дд.мм.гггг" ></div>';
-			$(".docPlus").append(new_doc);
+			var doc_example='<div class="doc-example'+i+'"><hr><label for="doc'+i+'">Документы-основания</label><select name="doc'+i+'" onchange="otherOptionForDinamic(this)"><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="bl'+i+'" style="display:none;"><input type="text" name="otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div></div><div class="form-group"><label for="">Дата документа</label><br><label for="dayOfDoc">День</label><select name="dayOfDoc"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select><label for="monthOfDoc">Месяц</label><select name="monthOfDoc"><option>января</option><option>февраля</option><option>марта</option><option>апреля</option><option>мая</option><option>июня</option><option>июля</option><option>августа</option><option>сентября</option><option>октября</option><option>ноября</option><option>декабря</option></select><label for="yearOfDoc">Год</label><select name="yearOfDoc"><option>2000</option><option>2001</option><option>2002</option><option>2003</option><option>2004</option><option>2005</option><option>2007</option><option>2008</option><option>2009</option><option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option><option selected >2015</option><option>2016</option></select></div></div>';
+			$(".docPlus").append(doc_example);
 			i++;
 		});
 		
@@ -175,18 +171,28 @@ var i=2; // для построение новых блоков дополнит
 		});
 	});
 //----------------------------------------------------------------------------------------
+		/*function decrement_one_time(decrement)
+		{
+			decrement = decrement -1;
+			return true;
+		}*/
+//----------------------------------------------------------------------------------------
 		function pre_otherOption(sel){
 		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	document.getElementById("pre_other_text1").style.display = 'block'; 
+		    	 	document.getElementById("pre_other_text").style.display = 'block'; 
 		   		 else 
-		     		document.getElementById("pre_other_text1").style.display = 'none';
+		     		document.getElementById("pre_other_text").style.display = 'none';
 		     };
 //----------------------------------------------------------------------------------------
 		function pre_otherOptionForDinamic(sel)
 		{
+				//Так как при нажатии кнопки происходит i++, то чтобы обратиться к текущему элементу необходимо уменьшить счетчик на 1
 				var decrement = i;
 				--decrement;
-				
+				/*if (decrement_one_time() != true)
+				{
+					decrement_one_time(decrement);
+				}*/
 				if(sel.options[sel.selectedIndex].value == "other") 
 		    		$("#pre_other_text"+decrement).css('display','block');		    		    	
 		   		else 
@@ -194,21 +200,18 @@ var i=2; // для построение новых блоков дополнит
 
 		};
 //----------------------------------------------------------------------------------------
-		function otherOption(sel){
+		function otherOption(sel){//Поменяй меня потом
 		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	$("#other_text1").css('display','block'); 
+		    	 	document.getElementById("pre_othasder_text").style.display = 'block'; 
 		   		 else 
-		     		$("#other_text1").css('display','none');
+		     		document.getElementById("pre_otasdher_text").style.display = 'none';
 		     };
 //----------------------------------------------------------------------------------------
 		function otherOptionForDinamic(sel){//Поменяй меня потом
-				var decrement = i;
-				--decrement;
-				
 				if(sel.options[sel.selectedIndex].value == "other") 
-		    		$("#other_text"+decrement).css('display','block');		    		    	
-		   		else 
-		     		$("#other_text"+decrement).css('display','none');
+		    	 	document.getElementById("pre_фывher_text"+i).style.display = 'block'; 
+		   		 else 
+		     		document.getElementById("pre_asdher_text"+i).style.display = 'none';
 		     	
 		     };
 		
@@ -223,12 +226,15 @@ var i=2; // для построение новых блоков дополнит
 //----------------------------------------------------------------------------------------
 		function showDogovor(){
 			document.getElementById("dogovor").style.display = 'block';
-			document.getElementById("pre_dogovor").style.display = 'none';			
+			document.getElementById("pre_dogovor").style.display = 'none';
+			document.getElementById("bot_btn").style.display = 'block';
+			
 		};
 //----------------------------------------------------------------------------------------
 		function showPreDogovor(){
 			document.getElementById("pre_dogovor").style.display = 'block';
-			document.getElementById("dogovor").style.display = 'none';							
+			document.getElementById("dogovor").style.display = 'none';
+							
 		};
 //----------------------------------------------------------------------------------------
 		
@@ -350,9 +356,9 @@ var i=2; // для построение новых блоков дополнит
 		        		<input name="pre_area" type="text" class="form-control" id=""  placeholder=" площадь">
 		          	</div>
 		          	<div class="form-group">
-		        		<label for="pre_adress">Адрес объекта</label><br>Город
-		        		<input name="pre_adress_city" type="text" class="form-control" id=""  placeholder="город">Улица/проспект
-		        		<input name="pre_adress_street" type="text" class="form-control" id=""  placeholder="улица/проспект">Дом №
+		        		<label for="pre_adress">Адрес объекта</label>
+		        		<input name="pre_adress" type="text" class="form-control" id=""  placeholder="город, улица/проспект">
+		        		Дом №
 		        		<input name="pre_adress_house" type="text" class="form-control" id=""  placeholder="номер дома">
 		        		Квартира №
 		        		<input name="pre_adress_flat" type="text" class="form-control" id=""  placeholder="номер квартиры">
@@ -487,11 +493,8 @@ var i=2; // для построение новых блоков дополнит
         					<input name="pre_passport" type="text" class="form-control" id=""  placeholder="серия, номер, кем выдан, дата выдачи ">
 	      				</div>
 	      				<div class="form-group">
-	      					<label for="pre_adressOfRegistration">Адрес регистрации</label><br>Город
-        					<input name="pre_adressOfRegistration_city" type="text" class="form-control" id=""  placeholder="город">Улица/Проспект
-        					<input name="pre_adressOfRegistration_street" type="text" class="form-control" id=""  placeholder="улица/проспект">Дом №
-        					<input name="pre_adressOfRegistration_house" type="text" class="form-control" id=""  placeholder="номер дома">Квартира №
-        					<input name="pre_adressOfRegistration_flat" type="text" class="form-control" id=""  placeholder="номер квартиры ">	      					     					
+	      					<label for="pre_adressOfRegistration">Адрес регистрации</label>
+        					<input name="pre_adressOfRegistration" type="text" class="form-control" id=""  placeholder="город, улица, номер дома, номер квартиры ">
 	      				</div>
 	      				<br>
 	      				<div class="form-group">
@@ -506,7 +509,7 @@ var i=2; // для построение новых блоков дополнит
 				        			<option value="spavka">Справка ЖСК о выплаченном пае</option>
 				        			<option value="other">Иное</option>
 				        		</select>
-		            		<div id="pre_other_text1" style="display:none;"><input type="text" name="pre_otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>
+		            		<div id="pre_other_text" style="display:none;"><input type="text" name="pre_otherOptionInput" value="" class="form-control" placeholder="введите название документа"></div>
 		      			</div>
 		      			</div>
 		      				<div class="form-group">
@@ -565,11 +568,8 @@ var i=2; // для построение новых блоков дополнит
 		        					<input name="pre_passport_of_buyer" type="text" class="form-control" id=""  placeholder="серия, номер, кем выдан, дата выдачи ">
 			      				</div>
 			      				<div class="form-group">
-			      					<label for="pre_adressOfRegistration_buyer">Адрес регистрации</label><br>Город
-		        					<input name="pre_adressOfRegistration_buyer_city" type="text" class="form-control" id=""  placeholder="город">Улица/Проспект
-		        					<input name="pre_adressOfRegistration_buyer_street" type="text" class="form-control" id=""  placeholder="улица/проспект">Дом №
-		        					<input name="pre_adressOfRegistration_buyer_house" type="text" class="form-control" id=""  placeholder="номер дома">Квартира №
-		        					<input name="pre_adressOfRegistration_buyer_flat" type="text" class="form-control" id=""  placeholder="номер квартиры">
+			      					<label for="pre_adressOfRegistration_buyer">Адрес регистрации</label>
+		        					<input name="pre_adressOfRegistration_buyer" type="text" class="form-control" id=""  placeholder="город, улица, номер дома, номер квартиры ">
 
 			      				</div>
 
@@ -695,9 +695,8 @@ var i=2; // для построение новых блоков дополнит
         		<input name="area" type="text" class="form-control" id=""  placeholder="площадь">
           	</div>
           	<div class="form-group">
-        		<label for="adress">Адрес объекта</label><br>Город
-        		<input name="adress_city" type="text" class="form-control" id=""  placeholder="город">Улица/проспект
-        		<input name="adress_street" type="text" class="form-control" id=""  placeholder="улица/проспект">Дом №
+        		<label for="adress">Адрес объекта</label>
+        		<input name="adress" type="text" class="form-control" id=""  placeholder="город, улица/проспект">Дом №
         		<input name="adress_house" type="text" class="form-control" id=""  placeholder="номер дома">Квартира №
         		<input name="adress_flat" type="text" class="form-control" id=""  placeholder="номер квартиры">
           	</div>
@@ -720,7 +719,7 @@ var i=2; // для построение новых блоков дополнит
     <div class="row">
     	<div class="col-md-12">
     		<input type="checkbox" id="dogovor_pact">Заполнить персональные данные сторон и адрес объекта
-    		<div class="panel panel-primary" id="pact_text" style="display:none">
+    		<div class="panel panel-primary" id="pact-text" style="display:none">
     			<div class="panel-body">
     			<p>Персональные данные, указанные Вами в конструкторе договора на нашем сайте, недоступны другим пользователям, и используются для генерации видимого только Вам текста договора. Данные передаются через защищенное шифрованием соединение, что подтверждает SSL сертификат Thawte. Мы уделяем серьезное внимание информационной безопасности наших серверов и конфиденциальности персональных данных наших клиентов.</p>
     			</div>
@@ -752,13 +751,12 @@ var i=2; // для построение новых блоков дополнит
 				Я уведомлен (-а), что после размещения на Сайте персональные данные хранятся в заблокированном виде до прекращения деятельности ООО «Электронный риэлтор» как юридического лица для их возможного анализа на предмет мошенничества Пользователя в отношении третьих лиц. При этом ООО «Электронный риэлтор» не удаляет персональные данные по запросу Пользователя, основываясь на п.5 ст.21 Федерального Закона №152-ФЗ «О персональных данных».
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" id="confirm_button"data-dismiss="modal" >Согласен/Согласна</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal" >Согласен/Согласна</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 
-	<div id ="vendor_and_buyer_block" style="display:none"> <!-- Начало блока продавца-покупателя -->
 	<!-- Пролавец-->
 	<div class="row">
     	<div class="col-md-12">
@@ -791,34 +789,33 @@ var i=2; // для построение новых блоков дополнит
         					<input name="passport" type="text" class="form-control" id=""  placeholder="серия, номер, кем выдан, дата выдачи ">
 	      				</div>
 	      				<div class="form-group">
-	      					<label for="adressOfRegistration">Адрес регистрации</label><br>Город
-        					<input name="adressOfRegistration_city" type="text" class="form-control" id=""  placeholder="город">Улица/проспект
-        					<input name="adressOfRegistration_street" type="text" class="form-control" id=""  placeholder="улица/проспект">Дом №
-        					<input name="adressOfRegistration_house" type="text" class="form-control" id=""  placeholder="номер дома">Квартира №
-        					<input name="adressOfRegistration_flat" type="text" class="form-control" id=""  placeholder="номер квартиры ">
+	      					<label for="adressOfRegistration">Адрес регистрации</label>
+        					<input name="adressOfRegistration" type="text" class="form-control" id=""  placeholder="город, улица, номер дома, номер квартиры ">
 	      				</div>
 	      				<br>
 	      				<div class="form-group">
-		      				<h3 class="panel-title" >Документы, подтверждающие право собственности на отчуждаемый объект</h3>
-		      				<div id="doc_osn1"><hr>
-			      				<label for="doc_osn1">Документы-основания</label>
-					        		<select name="doc_osn1" onchange="otherOption(this);">
-					        			<option value="choose">Нажмите чтобы выбрать...</option>
-					        			<option value="kuplya">Договор купли-продажи</option>
-					        			<option value="darenie">Договор дарения</option>
-					        			<option value="meni">Договор мены</option>
-					        			<option value="spavka">Справка ЖСК о выплаченном пае</option>
-					        			<option value="other">Иное</option>
-					        		</select>
-			            		<div id="other_text1" style="display:none;"><input type="text" name="otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>
-			      			</div>		            		
-				        </div>
+	      				<h3 class="panel-title" >Документы, подтверждающие право собственности на отчуждаемый объект</h3>
+	      				<div class="doc-example"><hr>
+		      				<label for="doc">Документы-основания</label>
+				        		<select name="doc_osn" onchange="otherOption(this);">
+				        			<option value="choose">Нажмите чтобы выбрать...</option>
+				        			<option value="kuplya">Договор купли-продажи</option>
+				        			<option value="darenie">Договор дарения</option>
+				        			<option value="meni">Договор мены</option>
+				        			<option value="spavka">Справка ЖСК о выплаченном пае</option>
+				        			<option value="other">Иное</option>
+				        		</select>
+		      				</div>
+		      				</div>		            		
+		            		<div id="bl" style="display:none;"><input type="text" name="otherOptionInput" value="" class="form-control" placeholder="введите название документа">
+				        	</div>
 				        	<div class="form-group">
 				        		<label for="">Дата документа</label><br>
-        						<input name="date_of_doc_osn1" type="text" class="form-control" id=""  placeholder="дд.мм.гг">			        		
+        						<input name="date_of_doc_osn" type="text" class="form-control" id=""  placeholder="дд.мм.гг">			        		
 				        	</div>
-			        	<div class="form-group docPlus"></div><!--Новые документы -->
-				        	<button type="button" class="btn btn-primary newDoc" id="add_new_doc">Добавить документ-основание</button>
+				        	<button type="button" class="btn btn-primary newDoc">Добавить документ-основание</button>
+			        	<div class="form-group docPlus">	      					
+	      				</div>
 	      				<div class="form-group">
 	      					<label for="svidetelstvo">Свидетельство о регистрации права собственности</label><br>Дата
         					<div id="cal_date_of_reg_svd">
@@ -831,7 +828,7 @@ var i=2; // для построение новых блоков дополнит
 	      				</div>
 	      				<div class="form-group">
 	      					<label for="svidetelstvo">Запись о регистрации №</label>
-        					<input name="svidetelstvo_number" type="text" class="form-control" id=""  placeholder="номер записи">
+        					<input name="svidetelstvo_number" type="number" class="form-control" id=""  placeholder="номер записи">
 	      				</div>
 
 	      			</div>
@@ -869,11 +866,8 @@ var i=2; // для построение новых блоков дополнит
 		        					<input name="passport_of_buyer" type="text" class="form-control" id=""  placeholder="серия, номер, кем выдан, дата выдачи ">
 			      				</div>
 			      				<div class="form-group">
-			      					<label for="adressOfRegistration_buyer">Адрес регистрации</label><br>Город
-		        					<input name="adressOfRegistration_buyer_city" type="text" class="form-control" id=""  placeholder="город">Улица/проспект
-		        					<input name="adressOfRegistration_buyer_street" type="text" class="form-control" id=""  placeholder="улица/проспект">Дом №
-		        					<input name="adressOfRegistration_buyer_house" type="text" class="form-control" id=""  placeholder="номер дома">Квартира №
-		        					<input name="adressOfRegistration_buyer_flat" type="text" class="form-control" id=""  placeholder="номер квартиры">
+			      					<label for="adressOfRegistration_buyer">Адрес регистрации</label>
+		        					<input name="adressOfRegistration_buyer" type="text" class="form-control" id=""  placeholder="город, улица, номер дома, номер квартиры ">
 
 			      				</div>
 
@@ -882,8 +876,7 @@ var i=2; // для построение новых блоков дополнит
 	        </div>
     	</div>
     
-  	</div><!-- Возможно конец блока продавца-покупателя -->
-
+  	</div>
  	<div class="row" id="bot_btn" style="display:none">
 		<div class="col-md-12">
 			<div id = "buttonPrint" class="btn btn-primary">Распечатать договор</div>
