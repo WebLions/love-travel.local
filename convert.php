@@ -47,7 +47,7 @@ if ($_POST['type_doc'] == 'pre_dogovor')
 	$document->setValue('pre_adressOfRegistration_buyer_house', $_POST['pre_adressOfRegistration_buyer_house']); 
 	$document->setValue('pre_adressOfRegistration_buyer_flat', $_POST['pre_adressOfRegistration_buyer_flat']); 
 	$document->setValue('pre_date_of_main_dogovor', $_POST['pre_date_of_main_dogovor']);//Дата заключения основного договора
-	$document->setValue('pre_flat', get_flat($_POST['pre_flat'])); 
+	$document->setValue('pre_flat', get_flat($_POST['pre_flat']) ); 
 	$document->setValue('pre_area_number', $_POST['pre_area']); 
 	$document->setValue('pre_area_string', num2str_flat($_POST['pre_area']));
 	$document->setValue('pre_floor', $_POST['pre_floor']); 
@@ -151,7 +151,7 @@ elseif($_POST['type_doc'] == 'dogovor')
 	$document->setValue('area', $_POST['area']);//
 	$document->setValue('area_string', num2str_flat($_POST['area']) );//
 	$document->setValue('floor', $_POST['floor']);//
-	$document->setValue('flat', $_POST['flat']);//
+	$document->setValue('flat', get_flat($_POST['flat']) );//
 	$document->setValue('adress_city', $_POST['adress_city']);//
 	$document->setValue('adress_street', $_POST['adress_street']);//
 	$document->setValue('adress_house', $_POST['adress_house']);//

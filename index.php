@@ -307,7 +307,7 @@ var i=2; // для построение новых блоков дополнит
 		        			<option>однокомнатная</option>
 		        			<option>двухкомнатная</option>
 		        			<option>трехкомнатная</option>
-		        			<option>четырехкмонатная</option>
+		        			<option>четырехкомнатная</option>
 		        		</select>
 		        	</div>
 		        	<div class="form-group">
@@ -511,7 +511,7 @@ var i=2; // для построение новых блоков дополнит
 		      			</div>
 		      				<div class="form-group">
 				        		<label for="">Дата документа</label><br>
-				        		<input name="pre_date_of_doc" type="text" class="form-control" id=""  placeholder="дд.мм.гггг">
+				        		<input name="pre_date_of_doc1" type="text" class="form-control" id=""  placeholder="дд.мм.гггг">
 				        	</div>
 				        <div class="form-group pre_docPlus"></div><!-- Сюда вставляется блок нового документа-->
 	      				<button type="button" class="btn btn-primary pre_newDoc" id="pre_add_new_doc">Добавить документ-основание</button>
@@ -527,7 +527,7 @@ var i=2; // для построение новых блоков дополнит
 	      				</div>
 	      				<div class="form-group">
 	      					<label for="pre_svidetelstvo">Запись о регистрации №</label>
-        					<input name="pre_svidetelstvo_number" type="number" class="form-control" id=""  placeholder="номер записи">
+        					<input name="pre_svidetelstvo_number" type="text" class="form-control" id=""  placeholder="номер записи">
 	      				</div>
 
 	      			</div>
@@ -652,7 +652,7 @@ var i=2; // для построение новых блоков дополнит
         			<option>однокомнатная</option>
         			<option>двухкомнатная</option>
         			<option>трехкомнатная</option>
-        			<option>четырехкмонатная</option>
+        			<option>четырехкомнатная</option>
         		</select>
         	</div>
         	<div class="form-group">

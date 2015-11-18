@@ -190,31 +190,6 @@ function get_sex_im($sex)
 }
 //Конец
 // ----------------------------------------------------------------------------------------
-//Функция склонения кол-во комнат
-function get_flat($flat)
-{
-	switch ($flat) {
-		case 'однокомнатная':
-			$flat = 'однокомнатную';
-			break;
-		case 'двухкомнатная':
-			$flat = 'двухкомнатную';
-			break;
-		case 'трехкомнатная':
-			$flat = 'трехкомнатную';
-			break;
-		case 'четырехкмонатная':
-			$flat = 'четырехкмонатную';
-			break;
-		
-		default:
-			$flat = 'Вы не выбрали комнату';
-			break;
-	}
-	return $flat;
-
-}
-// ----------------------------------------------------------------------------------------
 
 function XMail($from, $to, $subj, $text, $filename)
  { 
@@ -298,7 +273,7 @@ function get_day_from_number($number)
 			break;
 
 		case '11':
-			$result = 'одинадцатое';
+			$result = 'одиннадцатое';
 			break;
 
 		case '12':
@@ -512,5 +487,27 @@ function get_year_from_number($number)
 	}
 	return $result;
 }
-
+function get_flat($flat_type)
+{
+	switch ($flat_type) 
+	{
+		case 'однокомнатная':
+			$result = 'однокомнатную';
+			break;
+		case 'двухкомнатная':
+			$result = 'двухкомнатную';
+			break;
+		case 'трехкомнатная':
+			$result = 'трехкомнатную';
+			break;
+		case 'четырехкомнатная':
+			$result = 'четырехкомнатную';
+			break;
+		
+		default:
+			$result = 'Ошибка. Вы не выбрали количество комнат';
+			break;
+	}
+	return $result;
+}
 ?>
