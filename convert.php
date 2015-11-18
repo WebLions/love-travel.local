@@ -105,7 +105,7 @@ if ($_POST['type_doc'] == 'pre_dogovor')
 
 	//-------------------------------------------------------------------------------------
 
-	$name_of_file = time() .'_pre_dogovor_full.docx';
+	$name_of_file = 'files/'. time() .'_pre_dogovor_full.docx';
 	setcookie('name_of_doc',$name_of_file);
 	$document->save($name_of_file); // Сохранение документа
 	
@@ -203,7 +203,7 @@ elseif($_POST['type_doc'] == 'dogovor')
 	
 	//-------------------------------------------------------------------------------------
 
-	$name_of_file = time() .'dogovor_full.docx';
+	$name_of_file = 'files/'. time() .'dogovor_full.docx';
 	setcookie('name_of_doc',$name_of_file);
 	$document->save($name_of_file); // Сохранение документа
 }	
@@ -218,8 +218,8 @@ $text = 'Congratz, you have file';
 XMail( $from, $to, $subj, $text, $name_of_file); 
 // ----------------------------------------------------------------------------------------
 // Отправка данных на сервис хранения почты
-/*include 'send_email_to_db';
-send_email_to_db($to);*/
+include 'send_email_to_db.php';
+send_email_to_db($to);
 // ----------------------------------------------------------------------------------------
 
 ?>

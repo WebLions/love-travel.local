@@ -69,7 +69,7 @@ var i=2; // для построение новых блоков дополнит
   		// -------------------------------------------------------------------------------
 		$('#pre_add_new_doc').click(function()			
 		{
-			var new_other_doc='<div class="form-group"><div id="pre_doc_osn'+i+'"><hr><label for="pre_doc">Документы-основания</label><select name="pre_doc_osn'+i+'"onchange="pre_otherOptionForDinamic(this);"><option value="choose">Нажмите чтобы выбрать</option><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="pre_other_text'+i+'" style="display:none"><input type="text" name="pre_otherOptionInput'+i+'"value="" class="form-control" placeholder="введите название документа"></div></div></div><div class="form-group"><label for="">Дата документа</label><br><input name="pre_date_of_doc'+i+'" type="text" class="form-control" id="" placeholder="дд.мм.гггг" ></div>';
+			var new_other_doc='<div class="form-group"><div id="pre_doc_osn'+i+'"><hr><label for="pre_doc">Документы-основания</label><select name="pre_doc_osn'+i+'"onchange="pre_otherOptionForDinamic(this);"><option value="choose">Нажмите чтобы выбрать</option><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="pre_new_other_input'+i+'"></div><div class="form-group"><label for="">Дата документа</label><br><input name="pre_date_of_doc'+i+'" type="text" class="form-control" id="" placeholder="дд.мм.гггг" ></div>';
 			$(".pre_docPlus").append(new_other_doc);
 			i++
 		   	
@@ -78,7 +78,7 @@ var i=2; // для построение новых блоков дополнит
 		$('#add_new_doc').click(function()
 		{
 			
-			var new_doc='<div class="form-group"><div id="doc_osn'+i+'"><hr><label for="doc">Документы-основания</label><select name="doc_osn'+i+'"onchange="otherOptionForDinamic(this);"><option value="choose">Нажмите чтобы выбрать</option><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="other_text'+i+'" style="display:none"><input type="text" name="otherOptionInput'+i+'"value="" class="form-control" placeholder="введите название документа"></div></div></div><div class="form-group"><label for="">Дата документа</label><br><input name="date_of_doc_osn'+i+'" type="text" class="form-control" id="" placeholder="дд.мм.гггг" ></div>';
+			var new_doc='<div class="form-group"><div id="doc_osn'+i+'"><hr><label for="doc">Документы-основания</label><select name="doc_osn'+i+'"onchange="otherOptionForDinamic(this);"><option value="choose">Нажмите чтобы выбрать</option><option value="kuplya">Договор купли-продажи</option><option value="darenie">Договор дарения</option><option value="meni">Договор мены</option><option value="spavka">Справка ЖСК о выплаченном пае</option><option value="other">Иное</option></select><div id="other_input'+i+'"></div><div class="form-group"><label for="">Дата документа</label><br><input name="date_of_doc_osn'+i+'" type="text" class="form-control" id="" placeholder="дд.мм.гггг" ></div>';
 			$(".docPlus").append(new_doc);
 			i++;
 		});
@@ -94,13 +94,68 @@ var i=2; // для построение новых блоков дополнит
 			$('#pre_printDogovorForm').modal();
 		});
   		// -------------------------------------------------------------------------------
-  		$('#pre_buttonEndOfTimes').click(function(){
-  			document.pre_mainForm.submit();
+  		//Проверка и отправка данных предварительного договора
+  		$('#pre_buttonEndOfTimes').click(function(event){
+  			event.preventDefault();
+
+  			var ser_arr = $('#pre_mainForm').serializeArray();
+  			var ser_arr_length = ser_arr.length;
+  			var counter = 0;
+  			for (var i=0;i<ser_arr_length;i++)
+  			{
+  				var current_val = ser_arr[i].value;
+  				if (current_val.length > 0 )
+  				{
+  					{counter++;}
+  				}
+  				if (current_val.length == 0)
+  				{
+  					$("input[name='"+ser_arr[i].name+"']").css("box-shadow", "0 0 1px 2px red");
+  				}
+
+  			}
+  			if (ser_arr_length != counter){
+  				alert('Не все поля заполнены!')
+  			}
+  			else if (ser_arr_length == counter)
+  			{
+  				document.pre_mainForm.submit();
+  			}
+  			
+  			/*$('#mainForm').serializeArray().forEach(function(a){console.log(a.name)});
+  			console.log($('#mainForm').serializeArray().length);*/
   		});
   		// -------------------------------------------------------------------------------
+  		//Проверка и отправка данных договора
   		$('#buttonEndOfTimes').click(function(){
-  			document.mainForm.submit();
+  			event.preventDefault();
+
+  			var ser_arr = $('#mainForm').serializeArray();
+  			var ser_arr_length = ser_arr.length;
+  			var counter = 0;
+  			for (var i=0;i<ser_arr_length;i++)
+  			{
+  				var current_val = ser_arr[i].value;
+  				if (current_val.length > 0 )
+  				{
+  					counter++;
+  				}
+  				if (current_val.length == 0)
+  				{
+  					$("input[name='"+ser_arr[i].name+"']").css("box-shadow", "0 0 1px 2px red");
+  				}
+
+  			}
+  			if (ser_arr_length != counter){
+  				alert('Не все поля заполнены!\n'+ser_arr_length+' '+counter)
+  			}
+  			else if (ser_arr_length == counter)
+  			{
+  				document.mainForm.submit();  			
+  			}
+  			
   		});
+
   		// -------------------------------------------------------------------------------
   		// -------------------------------Дэйтпикеры--------------------------------------
   		// -------------------------------------------------------------------------------
@@ -123,18 +178,8 @@ var i=2; // для построение новых блоков дополнит
     	autoclose: true,
     	todayHighlight: true
 		});			
-  		// -------------------------------------------------------------------------------
-  		$('#pre_cal_date_of_reg_obr .input-group.date').datepicker({
-    	language: "ru",
-    	autoclose: true,
-    	todayHighlight: true
-		});
-  		// -------------------------------------------------------------------------------
-  		$('#pre_cal_date_of_end_obr .input-group.date').datepicker({
-    	language: "ru",
-    	autoclose: true,
-    	todayHighlight: true
-		});
+  		
+  		
   		// -------------------------------------------------------------------------------
   		$('#pre_cal_svidetelstvo_data .input-group.date').datepicker({
     	language: "ru",
@@ -177,9 +222,17 @@ var i=2; // для построение новых блоков дополнит
 //----------------------------------------------------------------------------------------
 		function pre_otherOption(sel){
 		  		if(sel.options[sel.selectedIndex].value == "other") 
+		  		{
+		  			var new_other_input = '<div id="pre_other_text1"><input type="text" name="pre_otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>';
+		  			$("#pre_new_other_input").append(new_other_input);
+		  		}
+		  		else
+		  			$("#pre_other_text1").remove();
+		    	 /*
 		    	 	document.getElementById("pre_other_text1").style.display = 'block'; 
 		   		 else 
 		     		document.getElementById("pre_other_text1").style.display = 'none';
+		     	*/
 		     };
 //----------------------------------------------------------------------------------------
 		function pre_otherOptionForDinamic(sel)
@@ -188,37 +241,74 @@ var i=2; // для построение новых блоков дополнит
 				--decrement;
 				
 				if(sel.options[sel.selectedIndex].value == "other") 
-		    		$("#pre_other_text"+decrement).css('display','block');		    		    	
+				{
+		    		var new_other_input = '<div id="pre_other_text'+decrement+'"><input type="text" name="pre_otherOptionInput'+decrement+'" value="" class="form-control" placeholder="введите название документа"></div>';
+		  			$("#pre_new_other_input"+decrement+"").append(new_other_input);
+		  		}
+		  		else
+		  			$("#pre_other_text"+decrement+"").remove();
+
+		    		/*$("#pre_other_text"+decrement).css('display','block');		    		    	
 		   		else 
-		     		$("#pre_other_text"+decrement).css('display','none');
+		     		$("#pre_other_text"+decrement).css('display','none');*/
 
 		};
 //----------------------------------------------------------------------------------------
 		function otherOption(sel){
 		  		if(sel.options[sel.selectedIndex].value == "other") 
-		    	 	$("#other_text1").css('display','block'); 
+		  		{
+		  			var new_other_input = '<div id="other_text1"><input type="text" name="otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>';
+		  			$("#other_input").append(new_other_input);
+		  		}
+		  		else
+		  			$("#other_text1").remove();
+		    	 	/*$("#other_text1").css('display','block'); 
 		   		 else 
-		     		$("#other_text1").css('display','none');
+		     		$("#other_text1").css('display','none');*/
 		     };
 //----------------------------------------------------------------------------------------
-		function otherOptionForDinamic(sel){//Поменяй меня потом
+		function otherOptionForDinamic(sel){
 				var decrement = i;
 				--decrement;
-				
+								
 				if(sel.options[sel.selectedIndex].value == "other") 
+				{
+					var new_other_input = '<div id="other_text'+decrement+'"><input type="text" name="otherOptionInput'+decrement+'" value="" class="form-control" placeholder="введите название документа"></div>';
+		  			$("#other_input"+decrement+"").append(new_other_input);
+		  		}
+		  		else
+		  			$("#other_text"+decrement+"").remove();
+		    	/*
 		    		$("#other_text"+decrement).css('display','block');		    		    	
 		   		else 
 		     		$("#other_text"+decrement).css('display','none');
-		     	
+		     	*/
 		     };
 		
 //----------------------------------------------------------------------------------------
-		function pre_showObremenenie(){
-			document.getElementById("pre_obremenenie_form").style.display = 'block';
+		function pre_showObremenenie()
+		{
+			
+			var obremeneie = '<div id="pre_obremenenie_form"><div class="form-group"><label for="pre_actorOfObremenenie">В пользу кого обременение</label><input name="pre_actorOfObremenenie"type="text" class="form-control" id="" placeholder="наименование"></div><div class="form-group"><label for="">Дата регистрации обременения согласно сведениям из ЕГРП</label><br><div id="pre_cal_date_of_reg_obr"><div class="input-group date"><input type="text" class="form-control" name="pre_date_of_reg_obr" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span></div></div></div><div class="form-group"><label for="pre_numberOfObremenenie">Номер регистрационной записи обременения</label><input name="pre_numberOfObremenenie"type="text" class="form-control" id="" placeholder="номер"></div><div class="form-group"><label for="pre_dayOfEnd">До какой даты Продавец снимет обременение</label><br><div id="pre_cal_date_of_end_obr"><div class="input-group date"><input type="text" class="form-control" name="pre_date_of_end_obr" placeholder="кликните чтобы выбрать..."><span class="input-group-addon" ><i class="glyphicon glyphicon-th"></i></span></div></div></div></div>'
+			$("#pre_obremenenie_true").append(obremeneie);
+		// -------------------------------------------------------------------------------
+  		$('#pre_cal_date_of_reg_obr .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+		// -------------------------------------------------------------------------------
+  		$('#pre_cal_date_of_end_obr .input-group.date').datepicker({
+    	language: "ru",
+    	autoclose: true,
+    	todayHighlight: true
+		});
+
+		  	
 		};
 //----------------------------------------------------------------------------------------
 		function pre_hideObremenenie(){
-			document.getElementById("pre_obremenenie_form").style.display = 'none';
+			$("#pre_obremenenie_form").remove();
 		};
 //----------------------------------------------------------------------------------------
 		function showDogovor(){
@@ -231,6 +321,7 @@ var i=2; // для построение новых блоков дополнит
 			document.getElementById("dogovor").style.display = 'none';							
 		};
 //----------------------------------------------------------------------------------------
+
 		
 			
 
@@ -273,7 +364,7 @@ var i=2; // для построение новых блоков дополнит
     <!-- Pre-dogovor -->
     <!-- Osnova -->
     <div id ="pre_dogovor" style="display:none">
-	<form class="" method="post" action="convert.php" name="pre_mainForm">
+	<form class="" method="post" action="convert.php" name="pre_mainForm" id="pre_mainForm">
 	<input type="hidden" value="pre_dogovor" name="type_doc">
      <div class="row">
     	<div class="col-md-12">
@@ -383,7 +474,8 @@ var i=2; // для построение новых блоков дополнит
 			        		<input type="radio" name="pre_obremeneie" value="yes" onclick="pre_showObremenenie()">есть
         					<input type="radio" name="pre_obremeneie" value="no" onclick="pre_hideObremenenie()">нет
 			        	</div>
-			        	<div id="pre_obremenenie_form" style="display:none">
+			        	<div id="pre_obremenenie_true"></div>
+			        	<!--<div id="pre_obremenenie_form" style="display:none">
 				        	<div class="form-group">
 				        		<label for="pre_actorOfObremenenie">В пользу кого обременение</label>
 	        					<input name="pre_actorOfObremenenie"type="text" class="form-control" id=""  placeholder="наименование">
@@ -408,7 +500,7 @@ var i=2; // для построение новых блоков дополнит
 								</div>			        		
 			        		</div>
 			        		</div>
-						</div>
+						</div>-->
     			 </div>
   	  		</div>
 		</div>
@@ -506,7 +598,8 @@ var i=2; // для построение новых блоков дополнит
 				        			<option value="spavka">Справка ЖСК о выплаченном пае</option>
 				        			<option value="other">Иное</option>
 				        		</select>
-		            		<div id="pre_other_text1" style="display:none;"><input type="text" name="pre_otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>
+				        		<div id="pre_new_other_input"></div><!-- Блок вставки альтернативного ввода документа-основания -->
+		            		<!--<div id="pre_other_text1" style="display:none;"><input type="text" name="pre_otherOptionInput1" value=" " class="form-control" placeholder="введите название документа"></div>-->
 		      			</div>
 		      			</div>
 		      				<div class="form-group">
@@ -617,7 +710,7 @@ var i=2; // для построение новых блоков дополнит
 <!--____________________________________________________________________________________________ -->
 <!-- Dogovor -->
     <div id="dogovor" style="display:none">
-	<form class="" method="post" action="convert.php" name="mainForm">
+	<form class="" method="post" action="convert.php" name="mainForm" id="mainForm">
 	<input type="hidden" value="dogovor" name="type_doc">
 
     <!-- Osnova -->
@@ -810,7 +903,8 @@ var i=2; // для построение новых блоков дополнит
 					        			<option value="spavka">Справка ЖСК о выплаченном пае</option>
 					        			<option value="other">Иное</option>
 					        		</select>
-			            		<div id="other_text1" style="display:none;"><input type="text" name="otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>
+					        	<div id="other_input"></div>
+			            		<!--<div id="other_text1" style="display:none;"><input type="text" name="otherOptionInput1" value="" class="form-control" placeholder="введите название документа"></div>-->
 			      			</div>		            		
 				        </div>
 				        	<div class="form-group">
