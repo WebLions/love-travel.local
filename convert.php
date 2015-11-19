@@ -66,12 +66,27 @@ if ($_POST['type_doc'] == 'pre_dogovor')
 
 	$document->setValue('pre_pricePrimary', $_POST['pre_pricePrimary']); 
 	$document->setValue('pre_pricePrimary_string', num2str_money($_POST['pre_pricePrimary']));
-	$document->setValue('pre_date_of_reg_obr', $_POST['pre_date_of_reg_obr']); 
 	$document->setValue('pre_differenceOfPrice', $_POST['pre_differenceOfPrice']); 
 	$document->setValue('pre_differenceOfPrice_string', num2str_money($_POST['pre_differenceOfPrice'])); 
+
+	//-------------------------------------------------------------------------------------
+	// Обременение
+	//-------------------------------------------------------------------------------------
+	$obremenenie = ''; //
+	if ($_POST['pre_obremeneie'] == 'yes')
+	{
+		$obremenenie = "На момент заключения сторонами настоящего договора в Единый государственный  реестр прав на недвижимое имущество и сделок с ним внесены следующие записи об ограничениях в отношении отчуждаемой квартиры:<w:br/>- от " . $_POST['pre_date_of_reg_obr'] . "г. № " . $_POST['pre_numberOfObremenenie'] . " ипотека в пользу залогодержателя " . $_POST['pre_actorOfObremenenie'] . ".<w:br/>ПРОДАВЕЦ обязуется в срок до " . $_POST['pre_date_of_end_obr'] . " года за свой счет прекратить все обременения в отношении квартиры и представить ПОКУПАТЕЛЮ соответствующие письменные доказательства.";
+	}
+	else if ($_POST['pre_obremeneie'] == 'no')
+		$obremenenie = "На момент совершения настоящего договора указанная квартира никому не продана, не подарена, не заложена, в споре и под запрещением (арестом) не состоит, свободна от любых третьих лиц.";
+	
+	$document->setValue('obremenenie', $obremenenie); 
+	/*$document->setValue('pre_date_of_reg_obr', $_POST['pre_date_of_reg_obr']); 
 	$document->setValue('pre_numberOfObremenenie', $_POST['pre_numberOfObremenenie']); 
 	$document->setValue('pre_actorOfObremenenie', $_POST['pre_actorOfObremenenie']); 
-	$document->setValue('pre_date_of_end_obr', $_POST['pre_date_of_end_obr']); 
+	$document->setValue('pre_date_of_end_obr', $_POST['pre_date_of_end_obr']); */
+
+	//-------------------------------------------------------------------------------------
 	$document->setValue('pre_price_number', $_POST['pre_price']); 
 	$document->setValue('pre_price_string', num2str_money($_POST['pre_price'])); 
 
