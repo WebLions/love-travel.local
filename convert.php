@@ -264,16 +264,34 @@ send_email_to_db($to);
     	 <!-- Global form -->
 	 	   	<div class="panel panel-primary ">
 				<div class="panel-heading">
-	            	<h3 class="panel-title">Информация</h3>
+	            	<!--<h3 class="panel-title">Информация</h3>-->
 	            </div>
 	      		<div class="panel-body">
+	      		<div class="row">
+    				<div class="col-md-12">
 	      			<p class="lead text-center">На ваш почтовый ящик было выслано письмо с документом.</p>
+	      			<hr>	
+	      			</div>
+	      	</div>      		
+	      		 <div class="row">
+    				<div class="col-md-12">
+	      			<h3 class="text-center">Вы также можете:</h3>
+	      			<p class="text-center"><a class="btn btn-primary" href="download_doc.php" role="button" style="font-size:28px">Скачать документ</a></p>
+	      	</div>
+	      	</div>
+	      <div class="row">
+    	<div class="col-md-12">
 	      			<hr>
-	      			<p class="lead text-center"> Вы также можете: <a href="download_doc.php">Скачать документ</a></p>
-
+	      			<!-- Социальные кнопки -->
+	      			<div class="text-center">
+	      			<p class="lead" style="font-size:18px"><i>Расскажите о нас друзьям</i></p>
+	      			<div class="share42init"></div>
+	      			</div>
+					<!-- -->
+	      	</div>
 	       		</div>
        		</div>
-    	
+    	</div>
     	</div>
     </div>
 	
@@ -283,6 +301,7 @@ send_email_to_db($to);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="social/share42.js"></script>
 
   </body>
 </html>
