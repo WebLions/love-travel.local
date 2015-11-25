@@ -238,14 +238,51 @@ send_email_to_db($to);
 // ----------------------------------------------------------------------------------------
 
 ?>
-<p>На ваш почтовый ящик былло выслано письмо с документом. Вы также можете<a href="download_doc.php">Скачать документ</a></p>
-<pre>
-<?
-/*
-echo $pre_doc_others;
 
-echo 'Тип документа:'.$_POST['type_doc'] . '<br>';
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Конструктор договоров купли-продажи квартиры</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">  
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">  
+  </head>
 
-var_dump($_POST);*/
-?>
-</pre>
+  <body>
+    <div class="container-fluid container-custom">
+    <div class="row">
+  		<div class="col-md-12">
+    		<h1 class="text-center">Конструктор договоров купли-продажи квартиры</h1>
+    		
+    	</div>
+    </div>
+     <div class="row">
+    	<div class="col-md-12">
+    	 <!-- Global form -->
+	 	   	<div class="panel panel-primary ">
+				<div class="panel-heading">
+	            	<h3 class="panel-title">Информация</h3>
+	            </div>
+	      		<div class="panel-body">
+	      			<p class="lead text-center">На ваш почтовый ящик было выслано письмо с документом.</p>
+	      			<hr>
+	      			<p class="lead text-center"> Вы также можете: <a href="download_doc.php">Скачать документ</a></p>
+
+	       		</div>
+       		</div>
+    	
+    	</div>
+    </div>
+	
+
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+  </body>
+</html>
